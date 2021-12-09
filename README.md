@@ -1,4 +1,4 @@
-# messenger
+# SocialApp
 
 A new Flutter project.
 
