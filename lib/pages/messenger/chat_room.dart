@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/components/custom_tab_bar.dart';
-import 'package:messenger/constants.dart';
+import 'package:socialapp/components/custom_tab_bar.dart';
+import 'package:socialapp/constants.dart';
 
 class ChatRoomPage extends StatefulWidget {
   
@@ -19,9 +19,9 @@ class _ChatRoomState extends State<ChatRoomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: C_PrimaryColor,
+      backgroundColor: cPrimaryColor,
       appBar: AppBar(
-        backgroundColor: C_PrimaryColor,
+        backgroundColor: cPrimaryColor,
         elevation: 0,
         leading: Builder(
           builder: (BuildContext context) {
@@ -43,8 +43,8 @@ class _ChatRoomState extends State<ChatRoomPage> {
                   height: 35,
                   width: 35,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(17))),
-                  child: CircleAvatar(
+                  decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(17))),
+                  child: const CircleAvatar(
                     backgroundImage: AssetImage("assets/images/user.jpg"),
                     radius: 16,
                   ),
@@ -70,7 +70,7 @@ class _ChatRoomState extends State<ChatRoomPage> {
                           ),
                           child: const Icon(
                             Icons.check,
-                            color: C_PrimaryColor,
+                            color: cPrimaryColor,
                             size: 10,
                           ),
                         )
@@ -115,8 +115,8 @@ class _ChatRoomState extends State<ChatRoomPage> {
                 ),
                 child: Column(
                   children: [
-                    CustomTabBar(activeBg: C_PrimaryColor, inactiveBg: Colors.white, activeColor: Colors.white, inactiveColor: Colors.black, tabList: categoryList),
-                    const SizedBox(height: C_DefaultPadding),
+                    CustomTabBar(activeBg: cPrimaryColor, inactiveBg: Colors.white, activeColor: Colors.white, inactiveColor: Colors.black, tabList: categoryList),
+                    const SizedBox(height: cDefaultPadding),
 
                   ],
                 ),

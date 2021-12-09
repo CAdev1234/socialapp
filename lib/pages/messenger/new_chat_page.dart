@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:messenger/constants.dart';
-import 'package:messenger/components/search_input.dart';
-import 'package:messenger/models/contact.dart';
-import 'package:messenger/pages/messenger/chat_room.dart';
+import 'package:socialapp/constants.dart';
+import 'package:socialapp/components/search_input.dart';
+import 'package:socialapp/models/contact.dart';
+import 'package:socialapp/pages/messenger/chat_room.dart';
 
 
 class NewChatPage extends StatefulWidget {
@@ -31,9 +31,9 @@ class _NewChatPageState extends State<NewChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: C_PrimaryColor,
+      backgroundColor: cPrimaryColor,
       appBar: AppBar(
-        backgroundColor: C_PrimaryColor,
+        backgroundColor: cPrimaryColor,
         elevation: 0,
         leading: Builder(
           builder: (BuildContext context) {
@@ -59,8 +59,8 @@ class _NewChatPageState extends State<NewChatPage> {
           children: [
             Expanded(
               child: Container(
-                margin: const EdgeInsets.only(top: C_DefaultPadding * 2),
-                padding: const EdgeInsets.only(top: C_DefaultPadding),
+                margin: const EdgeInsets.only(top: cDefaultPadding * 2),
+                padding: const EdgeInsets.only(top: cDefaultPadding),
                 decoration: const BoxDecoration( 
                   color: Colors.white,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))
@@ -68,15 +68,15 @@ class _NewChatPageState extends State<NewChatPage> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: C_DefaultPadding, left: C_DefaultPadding),
+                      padding: const EdgeInsets.only(right: cDefaultPadding, left: cDefaultPadding),
                       child: SearchInput(),
                     ),
-                    const SizedBox(height: C_DefaultPadding * 0.75),
+                    const SizedBox(height: cDefaultPadding * 0.75),
                     const Text(
                       "Frequently Used Contacts",
-                      style: TextStyle(color: C_PrimaryColor, fontSize: 10, fontWeight: FontWeight.w500),
+                      style: TextStyle(color: cPrimaryColor, fontSize: 10, fontWeight: FontWeight.w500),
                     ),
-                    const SizedBox(height: C_DefaultPadding * 0.6),
+                    const SizedBox(height: cDefaultPadding * 0.6),
                     SizedBox(
                       height: 120,
                       child: ListView.builder(
@@ -124,7 +124,7 @@ class _NewChatPageState extends State<NewChatPage> {
                                       height: 14,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: contactData[index].isVerified ? C_PrimaryColor : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
+                                        color: contactData[index].isVerified ? cPrimaryColor : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
                                       ),
                                       child: const Icon(
                                         Icons.check,
@@ -143,7 +143,7 @@ class _NewChatPageState extends State<NewChatPage> {
                     const SizedBox(height: 17),
                     const Text(
                       'All Contacts',
-                      style: TextStyle(color: C_PrimaryColor, fontSize: 10, fontWeight: FontWeight.bold)
+                      style: TextStyle(color: cPrimaryColor, fontSize: 10, fontWeight: FontWeight.bold)
                     ),
                     const SizedBox(height: 16),
                     Expanded(
@@ -192,7 +192,7 @@ class _NewChatPageState extends State<NewChatPage> {
                                         height: 14,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                          color: contactData[index].isVerified ? C_PrimaryColor : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
+                                          color: contactData[index].isVerified ? cPrimaryColor : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
                                         ),
                                         child: const Icon(
                                           Icons.check,

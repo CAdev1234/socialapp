@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/theme.dart';
+import 'package:socialapp/theme.dart';
 import 'pages/welcome_page.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: WelcomePage(),
+      home: const WelcomePage(),
     );
   }
 }

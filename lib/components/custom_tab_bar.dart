@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/constants.dart';
+import 'package:socialapp/constants.dart';
 
 
 class CustomTabBar extends StatefulWidget {
@@ -29,7 +29,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: C_DefaultPadding),
+      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: cDefaultPadding),
       height: 24.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -43,7 +43,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
           child: Container(
             height: 24,
             alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: C_DefaultPadding * 0.6),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: cDefaultPadding * 0.6),
             decoration: BoxDecoration(
               color: index == selectedIndex ? widget.activeBg : widget.inactiveBg, 
               borderRadius: BorderRadius.circular(30)

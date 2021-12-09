@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/components/custom_tab_bar.dart';
-import 'package:messenger/components/search_input.dart';
-import 'package:messenger/constants.dart';
-import 'package:messenger/models/transitions.dart';
+import 'package:socialapp/components/custom_tab_bar.dart';
+import 'package:socialapp/components/search_input.dart';
+import 'package:socialapp/constants.dart';
+import 'package:socialapp/models/transitions.dart';
 import 'new_chat_page.dart';
 
 
@@ -108,9 +108,9 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: C_PrimaryColor,
+      backgroundColor: cPrimaryColor,
       appBar: AppBar(
-        backgroundColor: C_PrimaryColor,
+        backgroundColor: cPrimaryColor,
         elevation: 0,
         leading: Builder(
           builder: (BuildContext context) {
@@ -133,37 +133,37 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            const SizedBox(height: C_DefaultPadding),
+            const SizedBox(height: cDefaultPadding),
             Container(
               alignment: Alignment.center,
-              child: CustomTabBar(tabList: chatCategory, activeColor: Colors.black, inactiveColor: Colors.white, activeBg: Colors.white, inactiveBg: C_PrimaryColor),
+              child: CustomTabBar(tabList: chatCategory, activeColor: Colors.black, inactiveColor: Colors.white, activeBg: Colors.white, inactiveBg: cPrimaryColor),
             ),
             Expanded(
               child: Stack(
                 children: <Widget>[
                   Container(
-                    margin: const EdgeInsets.only(top: C_DefaultPadding * 0.8),
-                    padding: const EdgeInsets.only(top: C_DefaultPadding * 0.8),
+                    margin: const EdgeInsets.only(top: cDefaultPadding * 0.8),
+                    padding: const EdgeInsets.only(top: cDefaultPadding * 0.8),
                     decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topRight: Radius.circular(25), topLeft: Radius.circular(25))),
                     child: Column(
                       children: [
-                        CustomTabBar(tabList: chatTypeList, inactiveColor: Colors.black, activeColor: Colors.white, activeBg: C_PrimaryColor, inactiveBg: Colors.white),
-                        const SizedBox(height: C_DefaultPadding),
+                        CustomTabBar(tabList: chatTypeList, inactiveColor: Colors.black, activeColor: Colors.white, activeBg: cPrimaryColor, inactiveBg: Colors.white),
+                        const SizedBox(height: cDefaultPadding),
                         const Text(
                           '000 UNREAD MESSAGES',
-                          style: TextStyle(color: C_PrimaryColor, fontSize: 10, fontWeight: FontWeight.w500),
+                          style: TextStyle(color: cPrimaryColor, fontSize: 10, fontWeight: FontWeight.w500),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: C_DefaultPadding * 0.4,
-                            left: C_DefaultPadding,
-                            right: C_DefaultPadding,
+                            top: cDefaultPadding * 0.4,
+                            left: cDefaultPadding,
+                            right: cDefaultPadding,
                           ),
                           child: Row(
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(right: C_DefaultPadding * 0.75),
+                                  padding: const EdgeInsets.only(right: cDefaultPadding * 0.75),
                                   child: SearchInput(),
                                 )
                               ),
@@ -190,7 +190,7 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
         child: FittedBox(
           child: FloatingActionButton(
             onPressed: _navigateNewChatPageHandler,
-            backgroundColor: C_PrimaryColor,
+            backgroundColor: cPrimaryColor,
             child: const Icon(
               Icons.border_color_outlined,
               color: Colors.white,

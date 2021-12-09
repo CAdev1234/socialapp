@@ -5,12 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData lightThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
-    primaryColor: C_PrimaryColor,
+    primaryColor: cPrimaryColor,
     scaffoldBackgroundColor: Colors.white,
-    iconTheme: IconThemeData(color: C_ContentColorLightTheme),
-    textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme).apply(bodyColor: C_ContentColorLightTheme),
-    colorScheme: ColorScheme.light(
-      primary: C_PrimaryColor,
+    iconTheme: const IconThemeData(color: cContentColorLightTheme),
+    textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme).apply(bodyColor: cContentColorLightTheme),
+    colorScheme: const ColorScheme.light(
+      primary: cPrimaryColor,
     )
   );
 }
@@ -18,12 +18,12 @@ ThemeData lightThemeData(BuildContext context) {
 
 ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
-    primaryColor: C_PrimaryColor,
-    scaffoldBackgroundColor: C_ContentColorDarkTheme,
-    iconTheme: IconThemeData(color: C_ContentColorDarkTheme),
+    primaryColor: cPrimaryColor,
+    scaffoldBackgroundColor: cContentColorDarkTheme,
+    iconTheme: const IconThemeData(color: cContentColorDarkTheme),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme).apply(bodyColor: Colors.blue),
-    colorScheme: ColorScheme.dark().copyWith(
-      primary: C_PrimaryColor
+    colorScheme: const ColorScheme.dark().copyWith(
+      primary: cPrimaryColor
     )
   );
 }

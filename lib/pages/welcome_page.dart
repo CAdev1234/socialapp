@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:messenger/pages/messenger/main_page.dart';
+import 'package:socialapp/pages/messenger/main_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -34,11 +33,11 @@ class WelcomePage extends StatelessWidget {
             ),
             const Spacer(),
             TextButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MessengerMainPage())), 
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MessengerMainPage())), 
               child: Column(
                 children: const [
                   Text(
-                    'Go to messenger',
+                    'Go to Messenger App',
                     textAlign: TextAlign.center,
                   )
                 ],

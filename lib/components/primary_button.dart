@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messenger/constants.dart';
+import 'package:socialapp/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -11,8 +11,8 @@ class PrimaryButton extends StatelessWidget {
     required Key key,
     required this.text,
     required this.press,
-    this.color = C_PrimaryColor,
-    this.padding = const EdgeInsets.all(C_DefaultPadding * 0.75)
+    this.color = cPrimaryColor,
+    this.padding = const EdgeInsets.all(cDefaultPadding * 0.75)
   }) : super(key: key);
 
   @override
