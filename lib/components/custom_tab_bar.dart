@@ -29,7 +29,6 @@ class _CustomTabBarState extends State<CustomTabBar> {
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 0, horizontal: cDefaultPadding),
       height: 24.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
