@@ -36,10 +36,10 @@ class _PasswordInputState extends State<PasswordInput> {
                 _isObscure = !_isObscure;
               });
             }, 
-            icon: const Icon(Icons.visibility, size: 18,)
+            icon: _isObscure ? const Icon(Icons.visibility_off, size: 18) : const Icon(Icons.visibility, size: 18,)
           )
         ),
-        style: const TextStyle(fontSize: cMainFontSize),
+        style: const TextStyle(fontSize: cFontSize14),
       ),
     );
   }

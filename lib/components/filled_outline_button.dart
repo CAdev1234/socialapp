@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:socialapp/constants.dart';
 
 
 class FilledOutlineButton extends StatelessWidget {
@@ -28,7 +29,7 @@ class FilledOutlineButton extends StatelessWidget {
         text,
         style: TextStyle(
           color: isFilled ? Colors.black : Colors.white,
-          fontSize: 12,
+          fontSize: cFontSize12,
           fontWeight: isFilled ? FontWeight.bold : FontWeight.w400
         ),
       ),

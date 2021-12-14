@@ -59,7 +59,7 @@ class _ChatInputState extends State<ChatInput> {
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
         ),
-        style: const TextStyle(fontSize: cMainFontSize),
+        style: const TextStyle(fontSize: cFontSize14),
       ),
     );
   }

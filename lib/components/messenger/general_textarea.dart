@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:socialapp/constants.dart';
 
-class GeneralInput extends StatefulWidget {
-  GeneralInput({Key? key, required double this.inputHeight }) : super(key: key);
+class GeneralTextArea extends StatefulWidget {
+  GeneralTextArea({Key? key}) : super(key: key);
 
-  double inputHeight;
 
   @override
-  State<GeneralInput> createState() => _GeneralInputState();
+  State<GeneralTextArea> createState() => _GeneralTextAreaState();
 }
 
 
-class _GeneralInputState extends State<GeneralInput> {
+class _GeneralTextAreaState extends State<GeneralTextArea> {
   
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.inputHeight,
-      child: const TextField(
+    return const SizedBox(
+      child: TextField(
+        minLines: 5,
+        maxLines: 20,
+        maxLength: 200,
         decoration: InputDecoration(
           contentPadding:
               EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),

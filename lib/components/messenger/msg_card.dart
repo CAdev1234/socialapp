@@ -25,7 +25,7 @@ class MsgCard extends StatelessWidget {
             style: TextStyle(
               color: isMine ? Colors.black : Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: cMainFontSize
+              fontSize: cFontSize14
             ),
           ),
           Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:socialapp/theme.dart';
 import 'pages/welcome_page.dart';
 
@@ -14,7 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: lightThemeData(context),
+      // theme: lightThemeData(context),
+      theme:ThemeData(
+       textTheme: GoogleFonts.poppinsTextTheme(
+           Theme.of(context).textTheme,
+       )
+      ),
       darkTheme: darkThemeData(context),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       home: const WelcomePage(),

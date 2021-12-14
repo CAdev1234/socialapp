@@ -18,11 +18,11 @@ class SearchInput extends StatelessWidget{
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
               child: const TextField(
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: cFontSize12),
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Search",
-                  hintStyle: TextStyle(color: cIconColor, fontSize: 12),
+                  hintStyle: TextStyle(color: cIconColor, fontSize: cFontSize12),
                   prefixIcon: Icon(Icons.search, size: 20, color: cIconColor,),
                   prefixIconConstraints: BoxConstraints(maxWidth: 40)
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socialapp/pages/messenger/main_page.dart';
+import 'package:socialapp/pages/messenger/main_page/main_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
