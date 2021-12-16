@@ -204,6 +204,7 @@ class MessengerMainPage extends StatelessWidget {
                             const SizedBox(height: 14,),
                             Expanded(
                               child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
                                 itemCount: demoContacts.length,
                                 itemBuilder: (context,  idx) => GestureDetector(
                                   onTap: () {},

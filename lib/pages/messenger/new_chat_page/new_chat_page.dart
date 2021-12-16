@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:socialapp/constants.dart';
 import 'package:socialapp/components/search_input.dart';
 import 'package:socialapp/models/contact.dart';
+import 'package:socialapp/pages/messenger/chat_room_page/chat_room_page.dart';
 import 'package:socialapp/pages/messenger/new_chat_page/controller/new_chat_page_controller.dart';
 // import 'package:socialapp/pages/messenger/chat_room_page/chat_room_page.dart';
 
@@ -17,16 +19,18 @@ class NewChatPage extends StatelessWidget {
   void moreActionHandler() {
 
   }
-  void navigateChatRoomPageHandler(int index) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (BuildContext context) => ChatRoomPage(userContact: demoContacts[index])
-    //   )
-    // ).then((value) => {
+  void navigateChatRoomPageHandler(int index, BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => ShowCaseWidget(builder: Builder(
+          builder: (_) => ChatRoomPage(userContact: demoContacts[index]),
+        ))
+      )
+    ).then((value) => {
       
-    // });
+    });
 
-    Get.toNamed("/messenger/chat_room_page", arguments: demoContacts[index]);
+    // Get.toNamed("/messenger/chat_room_page", arguments: demoContacts[index]);
   }
   
   @override
@@ -82,9 +86,10 @@ class NewChatPage extends StatelessWidget {
                         SizedBox(
                           height: 120,
                           child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
                             itemCount: 3,
                             itemBuilder: (context, index) => GestureDetector(
-                              onTap: () => navigateChatRoomPageHandler(index),
+                              onTap: () => navigateChatRoomPageHandler(index, context),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Container(
@@ -150,65 +155,66 @@ class NewChatPage extends StatelessWidget {
                         const SizedBox(height: 16),
                         Expanded(
                           child: ListView.builder(
-                              itemCount: demoContacts.length,
-                              itemBuilder: (context, index) => GestureDetector(
-                                onTap: () => navigateChatRoomPageHandler(index),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: Container(
-                                    margin: const EdgeInsets.only(bottom: 8),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color.fromRGBO(0, 0, 0, 0.14),
-                                          offset: Offset(
-                                            0.0,
-                                            1.0,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: demoContacts.length,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: () => navigateChatRoomPageHandler(index, context),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Container(
+                                  margin: const EdgeInsets.only(bottom: 8),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color.fromRGBO(0, 0, 0, 0.14),
+                                        offset: Offset(
+                                          0.0,
+                                          1.0,
+                                        ),
+                                        blurRadius: 3.0,
+                                        spreadRadius: -1.0,
+                                      ), //BoxShadowBoxShadow
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundImage: AssetImage(demoContacts[index].image),
+                                          radius: 16,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 10, right: 6),
+                                          child: 
+                                            Text(
+                                              '${demoContacts[index].firstname} ${demoContacts[index].lastname}', 
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold, fontSize: cFontSize12)
+                                              ),
+                                        ),
+                                        Container(
+                                          width: 14,
+                                          height: 14,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: demoContacts[index].isVerified ? cPrimaryColor1 : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
                                           ),
-                                          blurRadius: 3.0,
-                                          spreadRadius: -1.0,
-                                        ), //BoxShadowBoxShadow
-                                      ],
+                                          child: const Icon(
+                                            Icons.check,
+                                            color: Colors.white,
+                                            size: 10,
+                                          ),
+                                        )
+                                      ]
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                      child: Row(
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundImage: AssetImage(demoContacts[index].image),
-                                            radius: 16,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 10, right: 6),
-                                            child: 
-                                              Text(
-                                                '${demoContacts[index].firstname} ${demoContacts[index].lastname}', 
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold, fontSize: cFontSize12)
-                                                ),
-                                          ),
-                                          Container(
-                                            width: 14,
-                                            height: 14,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              color: demoContacts[index].isVerified ? cPrimaryColor1 : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
-                                            ),
-                                            child: const Icon(
-                                              Icons.check,
-                                              color: Colors.white,
-                                              size: 10,
-                                            ),
-                                          )
-                                        ]
-                                      ),
-                                    )
-                                  ), 
-                                )
-                              ) 
-                            ),
+                                  )
+                                ), 
+                              )
+                            ) 
+                          ),
                         ),
 
                       ]

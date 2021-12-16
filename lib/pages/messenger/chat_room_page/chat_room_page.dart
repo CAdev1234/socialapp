@@ -1,19 +1,86 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/rendering.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:socialapp/components/messenger/chat_input.dart';
-import 'package:socialapp/components/messenger/msg_card.dart';
+import 'package:socialapp/components/animation/custom_popup_route.dart';
+import 'package:socialapp/components/messenger/msg_card/msg_card.dart';
 import 'package:socialapp/constants.dart';
 
 import 'package:socialapp/models/chat_message.dart';
-import 'package:socialapp/pages/messenger/chat_room_page/controller/chat_room_page_controller.dart';
+import 'package:socialapp/models/contact.dart';
+import 'package:socialapp/models/transition_type.dart';
+import 'package:socialapp/pages/messenger/chat_room_page/components/msg_type_popup.dart';
 
-class ChatRoomPage extends StatelessWidget {
-
+class ChatRoomPage extends StatefulWidget {
   
-  ChatRoomPage({Key? key}) : super(key: key);
+  const ChatRoomPage({Key? key, required this.userContact}) : super(key: key);
+  final Contact userContact;
   
-  ChatRoomPageController chatRoomPageController = Get.put(ChatRoomPageController());
 
+  @override
+  State<ChatRoomPage> createState() => _ChatRoomState();
+  
+}
+
+
+class _ChatRoomState extends State<ChatRoomPage> {
+
+  final List categoryList = ["All", "Saved", "Media"];
+  int categoryIdx = 0;
+
+  bool enableChatInputFocus = false;
+  bool enableRecord = false;
+
+  final keyOne = GlobalKey();
+  // Future httpGet(String url) {
+  //   return Future.delayed(const Duration(seconds: 3), () {
+  //     debugPrint("OKKKKKKKK");
+  //   });
+  // }
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => ShowCaseWidget.of(context)!.startShowCase(
+        [keyOne]
+      )
+    );
+  }
+
+  void selectCategoryHandler(int idx) {
+    setState(() {
+      categoryIdx = idx;
+    });
+  }
+
+  focusChatInputHandler(bool value) {
+    setState(() {
+      enableChatInputFocus = value;
+    });
+  }
+
+  createRecordHandler(bool value) {
+    setState(() {
+      enableRecord = value;
+    });
+  }
+
+  openMsgTypePopupHandler(context) {
+    Navigator.of(context).push(
+      CustomPopupRoute(
+        builder: (context) {
+          return const MsgTypePopupBody();
+        }, 
+        dismissible: false, 
+        color: Colors.black54,
+        transitionType: TransitionType.slideUp,
+        duration: 500,
+        label: "Msg Type Popup" 
+      )
+    );
+  }
 
   Widget emptyBody() {
     return Column(
@@ -36,6 +103,7 @@ class ChatRoomPage extends StatelessWidget {
   Widget chatBody() {
     return Expanded(
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: demoChatMessage.length,
         itemBuilder: (context, index) => GestureDetector(
           child: Container(
@@ -52,7 +120,6 @@ class ChatRoomPage extends StatelessWidget {
     );
   }
 
-  
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +133,11 @@ class ChatRoomPage extends StatelessWidget {
           builder: (BuildContext context) {
             return IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back_ios, size: cFontSize16),
+              icon: Showcase(
+                key: keyOne, 
+                child: Icon(Icons.arrow_back_ios, size: cFontSize16), 
+                description: "description"
+              ),
               alignment: const Alignment(0, 0.0), // move icon a bit to the left
             );
           },
@@ -84,7 +155,7 @@ class ChatRoomPage extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(17))),
                   child: CircleAvatar(
-                    backgroundImage: AssetImage(chatRoomPageController.clientContact.image),
+                    backgroundImage: AssetImage(widget.userContact.image),
                     radius: 16,
                   ),
                 ),
@@ -97,11 +168,11 @@ class ChatRoomPage extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '${chatRoomPageController.clientContact.firstname} ${chatRoomPageController.clientContact.lastname}',
+                          '${widget.userContact.firstname} ${widget.userContact.lastname}',
                           style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(width: 6),
-                        chatRoomPageController.clientContact.isVerified ? Container(
+                        widget.userContact.isVerified ? Container(
                           width: 14,
                           height: 14,
                           decoration: const BoxDecoration(
@@ -164,20 +235,20 @@ class ChatRoomPage extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: chatRoomPageController.categoryList.asMap().map((idx, item) => MapEntry(idx, 
+                            children: categoryList.asMap().map((idx, item) => MapEntry(idx, 
                               GestureDetector(
-                                onTap: () => chatRoomPageController.selectCategoryHandler(idx),
-                                child: Obx(() => Container(
+                                onTap: () => selectCategoryHandler(idx),
+                                child: Container(
                                   height: 24, width: 52,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: chatRoomPageController.categoryIdx.value == idx ? cPrimaryColor1 : Colors.transparent, borderRadius: const BorderRadius.all(Radius.circular(12))
+                                    color: categoryIdx == idx ? cPrimaryColor1 : Colors.transparent, borderRadius: const BorderRadius.all(Radius.circular(12))
                                   ),
                                   child: Text(
                                     item, 
-                                    style: TextStyle(color: chatRoomPageController.categoryIdx.value == idx ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold)
+                                    style: TextStyle(color: categoryIdx == idx ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold)
                                   ),
-                                ),)
+                                ),
                               ),
                             )).values.toList()
                           ),
@@ -216,18 +287,18 @@ class ChatRoomPage extends StatelessWidget {
                   width: size.width,
                   padding: const EdgeInsets.symmetric(horizontal: cDefaultPadding * 0.8, vertical: 5),
                   decoration: const BoxDecoration(color: cChatRoomBgLightTheme),
-                  child: Obx(() => Row(
+                  child: Row(
                     children: [
-                      !chatRoomPageController.enableRecord.value ? Expanded(
+                      !enableRecord ? Expanded(
                         child: Row(
                           children: [
                             GestureDetector(
-                              onTap: () => chatRoomPageController.openMsgTypePopupHandler(context),
+                              onTap: () => openMsgTypePopupHandler(context),
                               child: const Icon(Icons.add, size: 25, color: Colors.black),
                             ),
                             const SizedBox(width: cDefaultPadding * 0.8),
                             Expanded(
-                              child: ChatInput(returnFocusState: (bool val) => chatRoomPageController.focusChatInputHandler(val))
+                              child: ChatInput(returnFocusState: (bool val) => focusChatInputHandler(val))
                             ),
                             const SizedBox(width: cDefaultPadding * 0.7),
                           ]
@@ -256,7 +327,7 @@ class ChatRoomPage extends StatelessWidget {
                         ),
                       ),
                       
-                      !chatRoomPageController.enableChatInputFocus.value && !chatRoomPageController.enableRecord.value ? Row(
+                      !enableChatInputFocus && !enableRecord ? Row(
                         children: [
                           GestureDetector(
                             onTap: () {},
@@ -264,14 +335,14 @@ class ChatRoomPage extends StatelessWidget {
                           ),
                           const SizedBox(width: cDefaultPadding),
                           GestureDetector(
-                            onTap: () => chatRoomPageController.createRecordHandler(true),
+                            onTap: () => createRecordHandler(true),
                             child: const Icon(Icons.mic, color: Colors.black, size: 25),
                           )
                         ],
                       ) : const Icon(Icons.send, color: cPrimaryColor1, size: 25,),
                       
                     ],
-                  ),)
+                  ),
                 )
 
               ]

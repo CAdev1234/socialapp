@@ -195,6 +195,7 @@ class ProfileCompletePage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: cDefaultPadding, horizontal: cDefaultPadding),
                       decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                       child: ListView(
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           Row(
                             children: const [

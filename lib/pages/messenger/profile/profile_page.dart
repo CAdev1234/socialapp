@@ -221,6 +221,7 @@ class ProfilePage extends StatelessWidget {
                         children: [
                           Expanded(
                             child: ListView(
+                              physics: const BouncingScrollPhysics(),
                               children: [
                                 TextButton(
                                   onPressed: () {

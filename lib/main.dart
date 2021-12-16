@@ -33,14 +33,14 @@ class MyApp extends StatelessWidget {
        )
       ),
       darkTheme: darkThemeData(context),
-      home: const HomePage(),
+      home: HomePage(),
       
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => const HomePage()),
+        GetPage(name: '/', page: () => HomePage()),
         GetPage(name: '/messenger/main_page', page: () => MessengerMainPage()),
         GetPage(name: '/messenger/new_chat_page', page: () => NewChatPage()),
-        GetPage(name: '/messenger/chat_room_page', page: () => ChatRoomPage()),
+        // GetPage(name: '/messenger/chat_room_page', page: () => ChatRoomPage()),
 
         //profile page
         GetPage(name: '/messenger/profile/profile_page', page: () => ProfilePage()),

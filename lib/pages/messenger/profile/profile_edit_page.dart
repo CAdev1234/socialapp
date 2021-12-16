@@ -52,6 +52,7 @@ class ProfileEditPage extends StatelessWidget {
                     boxShadow: cBoxShadow
                   ),
                   child: ListView(
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       Row(
                         children: const [

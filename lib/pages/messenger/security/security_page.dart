@@ -68,6 +68,7 @@ class SecurityPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: cDefaultPadding * 0.6, right: cDefaultPadding * 0.6, top: 13),
                     child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                       itemCount: demoSecurity.length + 1,
                       itemBuilder: (context, idx) => idx != demoSecurity.length ? Container(
                         padding: const EdgeInsets.only(top: cDefaultPadding, bottom: cDefaultPadding, left: cDefaultPadding, right: cDefaultPadding),
