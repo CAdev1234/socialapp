@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:socialapp/pages/messenger/main_page/main_page.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,10 @@ class WelcomePage extends StatelessWidget {
             ),
             const Spacer(),
             TextButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MessengerMainPage())), 
+              onPressed: () {
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => const MessengerMainPage()));
+                Get.to(() => MessengerMainPage());
+              }, 
               child: Column(
                 children: const [
                   Text(

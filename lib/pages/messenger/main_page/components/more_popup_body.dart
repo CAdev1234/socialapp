@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:socialapp/components/animation/custom_popup_route.dart';
 import 'package:socialapp/constants.dart';
-import 'package:socialapp/models/transition_type.dart';
-import 'package:socialapp/pages/messenger/main_page/components/profile_popup_body.dart';
+import 'package:socialapp/pages/messenger/profile/profile_page.dart';
 
 class MorePopupBody extends StatelessWidget {
   const MorePopupBody({Key? key}) : super(key: key);
-
-  void openProfilePopupHandler() {
-    
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +28,12 @@ class MorePopupBody extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.of(context).push(
-                          CustomPopupRoute(
-                            builder: (context) {
-                              return const ProfilePopupBody();
-                            }, 
-                            transitionType: TransitionType.scale,
-                            duration: 200,
-                            dismissible: false, 
-                            color: Colors.black54, 
-                            label: "Profile Popup"
-                          ));
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => ProfilePage()
+                            )
+                          ).then((value) => {
+                            
+                          });
                         } ,
                         child: Row(
                           children: const [

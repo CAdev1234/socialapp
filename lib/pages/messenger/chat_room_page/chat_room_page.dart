@@ -1,87 +1,19 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:socialapp/components/messenger/chat_input.dart';
-import 'package:socialapp/components/animation/custom_popup_route.dart';
 import 'package:socialapp/components/messenger/msg_card.dart';
 import 'package:socialapp/constants.dart';
 
 import 'package:socialapp/models/chat_message.dart';
-import 'package:socialapp/models/contact.dart';
-import 'package:socialapp/models/transition_type.dart';
-import 'package:socialapp/pages/messenger/chat_room/components/msg_type_popup.dart';
+import 'package:socialapp/pages/messenger/chat_room_page/controller/chat_room_page_controller.dart';
 
-class ChatRoomPage extends StatefulWidget {
+class ChatRoomPage extends StatelessWidget {
+
   
-  const ChatRoomPage({Key? key, required this.userContact}) : super(key: key);
-  final Contact userContact;
+  ChatRoomPage({Key? key}) : super(key: key);
   
+  ChatRoomPageController chatRoomPageController = Get.put(ChatRoomPageController());
 
-  @override
-  State<ChatRoomPage> createState() => _ChatRoomState();
-  
-}
-
-
-class _ChatRoomState extends State<ChatRoomPage> {
-  final List categoryList = ["All", "Saved", "Media"];
-  bool enableAllOption = true;
-  bool enableSavedOption = false;
-  bool enableMediaOption = false;
-  bool enableChatInputFocus = false;
-
-  Future httpGet(String url) {
-    return Future.delayed(const Duration(seconds: 3), () {
-      debugPrint("OKKKKKKKK");
-    });
-  }
-
-  void getAllHandler() {
-    setState(() {
-      enableAllOption = true;
-      enableSavedOption = false;
-      enableMediaOption = false;
-    });
-    
-  }
-
-  void getSavedHandler() {
-    setState(() {
-      enableAllOption = false;
-      enableSavedOption = true;
-      enableMediaOption = false;
-    });
-  }
-
-  void getMediaHandler() {
-    setState(() {
-      enableAllOption = false;
-      enableSavedOption = false;
-      enableMediaOption = true;
-    });
-  }
-
-  void updateChatInputHanlder(bool value) {
-    setState(() {
-      enableChatInputFocus = value;
-    });
-  }
-
-  void openMsgTypePopupHandler() {
-    Navigator.of(context).push(
-      CustomPopupRoute(
-        builder: (context) {
-          return const MsgTypePopupBody();
-        }, 
-        dismissible: false, 
-        color: Colors.black54,
-        transitionType: TransitionType.slideUp,
-        duration: 500,
-        label: "Msg Type Popup" 
-      )
-    );
-  }
 
   Widget emptyBody() {
     return Column(
@@ -120,6 +52,8 @@ class _ChatRoomState extends State<ChatRoomPage> {
     );
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -150,7 +84,7 @@ class _ChatRoomState extends State<ChatRoomPage> {
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(17))),
                   child: CircleAvatar(
-                    backgroundImage: AssetImage(widget.userContact.image),
+                    backgroundImage: AssetImage(chatRoomPageController.clientContact.image),
                     radius: 16,
                   ),
                 ),
@@ -163,11 +97,11 @@ class _ChatRoomState extends State<ChatRoomPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '${widget.userContact.firstname} ${widget.userContact.lastname}',
+                          '${chatRoomPageController.clientContact.firstname} ${chatRoomPageController.clientContact.lastname}',
                           style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(width: 6),
-                        widget.userContact.isVerified ? Container(
+                        chatRoomPageController.clientContact.isVerified ? Container(
                           width: 14,
                           height: 14,
                           decoration: const BoxDecoration(
@@ -230,49 +164,22 @@ class _ChatRoomState extends State<ChatRoomPage> {
                           alignment: Alignment.center,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: [
+                            children: chatRoomPageController.categoryList.asMap().map((idx, item) => MapEntry(idx, 
                               GestureDetector(
-                                onTap: getAllHandler,
-                                child: Container(
+                                onTap: () => chatRoomPageController.selectCategoryHandler(idx),
+                                child: Obx(() => Container(
                                   height: 24, width: 52,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: enableAllOption ? cPrimaryColor1 : Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(12))
+                                    color: chatRoomPageController.categoryIdx.value == idx ? cPrimaryColor1 : Colors.transparent, borderRadius: const BorderRadius.all(Radius.circular(12))
                                   ),
                                   child: Text(
-                                    "All", 
-                                    style: TextStyle(color: enableAllOption ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold)
+                                    item, 
+                                    style: TextStyle(color: chatRoomPageController.categoryIdx.value == idx ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold)
                                   ),
-                                ),
+                                ),)
                               ),
-                              GestureDetector(
-                                onTap: getSavedHandler,
-                                child: Container(
-                                  height: 24, width: 52,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: enableSavedOption ? cPrimaryColor1 : Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(12))
-                                  ),
-                                  child: Text(
-                                    "Saved", 
-                                    style: TextStyle(color: enableSavedOption ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold),),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: getMediaHandler,
-                                child: Container(
-                                  height: 24, width: 52,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: enableMediaOption ? cPrimaryColor1 : Colors.transparent, borderRadius: BorderRadius.all(Radius.circular(12))
-                                  ),
-                                  child: Text(
-                                    "Media", 
-                                    style: TextStyle(color: enableMediaOption ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold),),
-                                ),
-                              ),
-                              
-                            ],
+                            )).values.toList()
                           ),
                         ),
                         
@@ -299,50 +206,75 @@ class _ChatRoomState extends State<ChatRoomPage> {
                         ),
                         const SizedBox(height: cDefaultPadding * 0.8),
                         
-                        demoChatMessage.isEmpty ? emptyBody() : chatBody()
-
-                        
+                        demoChatMessage.isEmpty ? emptyBody() : chatBody(),
                       ],
                     ),
                   ) 
                 ),
-              ]
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              child: Container(
-                width: size.width,
-                padding: const EdgeInsets.symmetric(horizontal: cDefaultPadding * 0.8, vertical: 5),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: openMsgTypePopupHandler,
-                      child: const Icon(Icons.add, size: 25, color: Colors.black),
-                    ),
-                    const SizedBox(width: cDefaultPadding * 0.8),
-                    Expanded(
-                      child: ChatInput(returnFocusState: (bool val) => updateChatInputHanlder(val))
-                    ),
-                    const SizedBox(width: cDefaultPadding * 0.7),
-                    !enableChatInputFocus ? Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Icon(Icons.camera_alt_rounded, color: Colors.black, size: 20),
+
+                Container(
+                  width: size.width,
+                  padding: const EdgeInsets.symmetric(horizontal: cDefaultPadding * 0.8, vertical: 5),
+                  decoration: const BoxDecoration(color: cChatRoomBgLightTheme),
+                  child: Obx(() => Row(
+                    children: [
+                      !chatRoomPageController.enableRecord.value ? Expanded(
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () => chatRoomPageController.openMsgTypePopupHandler(context),
+                              child: const Icon(Icons.add, size: 25, color: Colors.black),
+                            ),
+                            const SizedBox(width: cDefaultPadding * 0.8),
+                            Expanded(
+                              child: ChatInput(returnFocusState: (bool val) => chatRoomPageController.focusChatInputHandler(val))
+                            ),
+                            const SizedBox(width: cDefaultPadding * 0.7),
+                          ]
                         ),
-                        const SizedBox(width: cDefaultPadding),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Icon(Icons.mic, color: Colors.black, size: 25),
-                        )
-                      ],
-                    ) : const Icon(Icons.send, color: cPrimaryColor1, size: 25,),
-                    
-                  ],
-                ),
-              )
-              
+                      )
+                      :
+                      Expanded(
+                        child: Row(
+                          children: [
+                            const Icon(Icons.mic, color: cWarnColor, size: 20,),
+                            const SizedBox(width: 5,),
+                            const Text(
+                              "00:10",
+                              style: TextStyle(color: Colors.black, fontSize: cFontSize14, fontWeight: FontWeight.w600),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "Slide to cancel",
+                                  style: TextStyle(color: cContentDisableColor, fontSize: cFontSize14)
+                                ) 
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      
+                      !chatRoomPageController.enableChatInputFocus.value && !chatRoomPageController.enableRecord.value ? Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {},
+                            child: const Icon(Icons.camera_alt_rounded, color: Colors.black, size: 20),
+                          ),
+                          const SizedBox(width: cDefaultPadding),
+                          GestureDetector(
+                            onTap: () => chatRoomPageController.createRecordHandler(true),
+                            child: const Icon(Icons.mic, color: Colors.black, size: 25),
+                          )
+                        ],
+                      ) : const Icon(Icons.send, color: cPrimaryColor1, size: 25,),
+                      
+                    ],
+                  ),)
+                )
+
+              ]
             ),
             
           ]
@@ -350,4 +282,6 @@ class _ChatRoomState extends State<ChatRoomPage> {
       )
     );
   }
+
+
 }

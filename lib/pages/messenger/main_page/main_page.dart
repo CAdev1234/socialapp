@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:socialapp/components/animation/custom_popup_route.dart';
+import 'package:get/get.dart';
 import 'package:socialapp/components/search_input.dart';
 import 'package:socialapp/constants.dart';
 import 'package:socialapp/models/transition_type.dart';
-import 'package:socialapp/components/animation/page_transition.dart';
-import 'package:socialapp/pages/messenger/main_page/components/more_popup_body.dart';
-import 'package:socialapp/pages/messenger/new_chat_page/new_chat_page.dart';
 import 'package:socialapp/models/contact.dart';
+import 'package:socialapp/pages/messenger/main_page/controller/main_page_controller.dart';
 
 
 class RouteTransitionType {
@@ -18,73 +16,16 @@ class RouteTransitionType {
 }
 
 
-class MessengerMainPage extends StatefulWidget {
-  const MessengerMainPage({Key? key}) : super(key: key);
+class MessengerMainPage extends StatelessWidget {
+  MessengerMainPage({Key? key}) : super(key: key);
 
-  final String pageTitle = "Messenger";
+  
   final String transitionStr = "Default";
-  @override
-  State<MessengerMainPage> createState() => _MessengerMainPageState();
-}
-
-
-class _MessengerMainPageState extends State<MessengerMainPage> {
-  List chatCategory = ['Contacts', 'Groups', 'Communities', 'Others'];
-  List enableCategory = [true, ...List.generate(3, (index) => false)];
-  List chatTypeList = ['Primary', 'General', 'Requests'];
-  List enableChatType = [true, ...List.generate(2, (index) => false)];
-  final List _routeTransitionTypeList = [];
-  bool enableMorePopup = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _routeTransitionTypeList
-    ..add(RouteTransitionType(title: 'Default', transitionType: TransitionType.defaultTransition))
-    ..add(RouteTransitionType(title: 'No Transition', transitionType: TransitionType.none))
-    ..add(RouteTransitionType(title: 'Size Transition', transitionType: TransitionType.size))
-    ..add(RouteTransitionType(title: 'Scale Transition', transitionType: TransitionType.scale))
-    ..add(RouteTransitionType(title: 'Fade Transition', transitionType: TransitionType.fade))
-    ..add(RouteTransitionType(title: 'Rotate Transition', transitionType: TransitionType.rotate))
-    ..add(RouteTransitionType(title: 'Slide Up Transition', transitionType: TransitionType.slideUp))
-    ..add(RouteTransitionType(title: 'Slide Down Transition', transitionType: TransitionType.slideDown))
-    ..add(RouteTransitionType(title: 'Slide Left Transition', transitionType: TransitionType.slideLeft))
-    ..add(RouteTransitionType(title: 'Slide Right Transition', transitionType: TransitionType.slideRight));
-  }
-
-  void _openMorePopupHandler() {
-    Navigator.of(context).push(
-      CustomPopupRoute(
-        builder: (context) {
-          return const MorePopupBody();
-        }, 
-        transitionType: TransitionType.scale,
-        duration: 200,
-        dismissible: false, 
-        color: Colors.black54, 
-        label: "More Popup"
-      ));
-  }
-
-  void updateChatCategoryHandler(int idx) {
-    List arrayVar = List.generate(4, (index) => false);
-    arrayVar[idx] = true;
-    setState(() {
-      enableCategory = arrayVar;
-    });
-  }
-
-  void updateChatTypeHanlder(int idx) {
-    var arrayVar = List.generate(3, (index) => false);
-    arrayVar[idx] = true;
-    setState(() {
-      enableChatType = arrayVar;
-    });
-  }
+  final MainPageController mainPageController = Get.put(MainPageController());
 
   
 
-  void _navigateNewChatPageHandler() {
+  void navigateNewChatPageHandler() {
     // Navigator.push(context, MaterialPageRoute(builder: (context) => const NewChatPage()));
     
     // MaterialPageRoute
@@ -115,26 +56,28 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
 
     
     // TransitionType transition
-    if (widget.transitionStr == 'Default') {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (BuildContext context) => const NewChatPage()
-        )
-      ).then((value) => {
+    if (transitionStr == 'Default') {
+      // Navigator.of(context).push(
+      //   MaterialPageRoute(
+      //     builder: (BuildContext context) => const NewChatPage()
+      //   )
+      // ).then((value) => {
         
-      });
+      // });
+      // Get.to(const NewChatPage());
+      Get.toNamed("/messenger/new_chat_page");
     }else {
-      Navigator.of(context).push(
-        Transitions(
-            // transitionType: _routeTransitionTypeList[0].transitionType,
-            transitionType: (_routeTransitionTypeList.where((item) => item.title == widget.transitionStr).toList())[0].transitionType,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.bounceInOut,
-            reverseCurve: Curves.fastOutSlowIn,
-            widget: const NewChatPage()
-        ),
-      ).then((value) => {
-      });
+      // Navigator.of(context).push(
+      //   Transitions(
+      //       // transitionType: _routeTransitionTypeList[0].transitionType,
+      //       transitionType: (_routeTransitionTypeList.where((item) => item.title == widget.transitionStr).toList())[0].transitionType,
+      //       duration: const Duration(milliseconds: 500),
+      //       curve: Curves.bounceInOut,
+      //       reverseCurve: Curves.fastOutSlowIn,
+      //       widget: const NewChatPage()
+      //   ),
+      // ).then((value) => {
+      // });
     }
     
   }
@@ -142,6 +85,8 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    // final MainPageController mainPageController = Get.put(MainPageController()); 
+    
     return Scaffold(
       backgroundColor: cPrimaryColor1,
       appBar: AppBar(
@@ -156,12 +101,12 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
             );
           },
         ),
-        title: Text(widget.pageTitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+        title: Text(mainPageController.pageTitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert),
-            onPressed: _openMorePopupHandler,  
+            onPressed: () => mainPageController.openMorePopupHandler(context),  
           ),
         ],
       ),
@@ -176,27 +121,28 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
                   width: size.width,
                   alignment: Alignment.center,
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: chatCategory.asMap().map((idx, item) => MapEntry(idx, 
-                      GestureDetector(
-                        onTap: () => updateChatCategoryHandler(idx),
-                        child: Container(
-                          height: 24,
-                          padding: const EdgeInsets.only(right: 10, left: 10),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: enableCategory[idx] ? Colors.white : cPrimaryColor1,
-                            borderRadius: const BorderRadius.all(Radius.circular(12))
-                          ),
-                          child: Text(
-                            item, 
-                            style: TextStyle(color: enableCategory[idx] ? Colors.black : Colors.white, fontSize: cFontSize12, fontWeight: FontWeight.bold)
-                          ),
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: mainPageController.chatCategory.asMap().map((idx, item) => MapEntry(idx, 
+                        GestureDetector(
+                          // onTap: () => mainPageController.updateChatCategoryHandler(idx),
+                          onTap: () => mainPageController.updateChatCategoryHandler(idx),
+                          child: Obx(() => Container(
+                            height: 24,
+                            padding: const EdgeInsets.only(right: 10, left: 10),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: mainPageController.enableCategory.value == idx ? Colors.white : cPrimaryColor1,
+                              borderRadius: const BorderRadius.all(Radius.circular(12))
+                            ),
+                            child: Text(
+                              item, 
+                              style: TextStyle(color: mainPageController.enableCategory.value == idx ? Colors.black : Colors.white, fontSize: cFontSize12, fontWeight: FontWeight.bold)
+                            ),
+                          )),
                         ),
-                      ),
-                    )).values.toList(),
-                  ),
+                      )).values.toList(),
+                    ),
                 ),
 
                 Expanded(
@@ -210,22 +156,22 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: chatTypeList.asMap().map((idx, item) => MapEntry(idx, 
+                              children: mainPageController.chatTypeList.asMap().map((idx, item) => MapEntry(idx, 
                                 GestureDetector(
-                                  onTap: () => updateChatTypeHanlder(idx),
-                                  child: Container(
+                                  onTap: () => mainPageController.updateChatTypeHanlder(idx),
+                                  child: Obx(() => Container(
                                     height: 24,
                                     padding: const EdgeInsets.only(right: 10, left: 10),
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
-                                      color: enableChatType[idx] ? cPrimaryColor1 : Colors.white,
+                                      color: mainPageController.enableChatType.value == idx ? cPrimaryColor1 : Colors.white,
                                       borderRadius: const BorderRadius.all(Radius.circular(12))
                                     ),
                                     child: Text(
                                       item, 
-                                      style: TextStyle(color: enableChatType[idx] ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold)
+                                      style: TextStyle(color: mainPageController.enableChatType.value == idx ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold)
                                     ),
-                                  ),
+                                  ))
                                 ),
                               )).values.toList(),
                             ),
@@ -249,7 +195,7 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
                                     )
                                   ),
                                   GestureDetector(
-                                    onTap: _openMorePopupHandler,
+                                    onTap: () => mainPageController.openMorePopupHandler(context),
                                     child: const Icon(Icons.tune),
                                   )
                                 ],
@@ -370,7 +316,7 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
         height: 54,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: _navigateNewChatPageHandler,
+            onPressed: navigateNewChatPageHandler,
             backgroundColor: cPrimaryColor1,
             child: const Icon(
               Icons.border_color_outlined,
@@ -381,4 +327,28 @@ class _MessengerMainPageState extends State<MessengerMainPage> {
       )
     );
   }
+
 }
+
+
+// class _MessengerMainPageState extends State<MessengerMainPage> {
+  
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _routeTransitionTypeList
+//     ..add(RouteTransitionType(title: 'Default', transitionType: TransitionType.defaultTransition))
+//     ..add(RouteTransitionType(title: 'No Transition', transitionType: TransitionType.none))
+//     ..add(RouteTransitionType(title: 'Size Transition', transitionType: TransitionType.size))
+//     ..add(RouteTransitionType(title: 'Scale Transition', transitionType: TransitionType.scale))
+//     ..add(RouteTransitionType(title: 'Fade Transition', transitionType: TransitionType.fade))
+//     ..add(RouteTransitionType(title: 'Rotate Transition', transitionType: TransitionType.rotate))
+//     ..add(RouteTransitionType(title: 'Slide Up Transition', transitionType: TransitionType.slideUp))
+//     ..add(RouteTransitionType(title: 'Slide Down Transition', transitionType: TransitionType.slideDown))
+//     ..add(RouteTransitionType(title: 'Slide Left Transition', transitionType: TransitionType.slideLeft))
+//     ..add(RouteTransitionType(title: 'Slide Right Transition', transitionType: TransitionType.slideRight));
+//   }
+
+  
+// }

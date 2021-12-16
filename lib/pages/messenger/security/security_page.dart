@@ -2,24 +2,16 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:socialapp/components/messenger/radio_group.dart';
 import 'package:socialapp/constants.dart';
 import 'package:socialapp/models/security.dart';
+import 'package:socialapp/pages/messenger/security/controller/security_page_controller.dart';
 
-class SecurityPage extends StatefulWidget {
-  const SecurityPage({Key? key}) : super(key: key);
+class SecurityPage extends StatelessWidget {
+  SecurityPage({Key? key}) : super(key: key);
 
-  State<SecurityPage> createState() => _SecurityPageState();
-}
-
-class _SecurityPageState extends State<SecurityPage> {
-
-  int? _phoneRadioValue = 0;
-
-  @override
-  void initState() {
-    
-  }
+  SecurityPageController pageController = Get.put(SecurityPageController());
 
   @override
   Widget build(BuildContext context) {

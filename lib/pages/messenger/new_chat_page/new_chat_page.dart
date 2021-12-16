@@ -1,33 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:socialapp/constants.dart';
 import 'package:socialapp/components/search_input.dart';
 import 'package:socialapp/models/contact.dart';
-import 'package:socialapp/pages/messenger/chat_room/chat_room.dart';
+import 'package:socialapp/pages/messenger/new_chat_page/controller/new_chat_page_controller.dart';
+// import 'package:socialapp/pages/messenger/chat_room_page/chat_room_page.dart';
 
 
-class NewChatPage extends StatefulWidget {
-  const NewChatPage({Key? key}) : super(key: key);
-  final String pageTitle = "New Chat";
-  @override
-  State<NewChatPage> createState() => _NewChatPageState();
-}
+class NewChatPage extends StatelessWidget {
+  
+  NewChatPage({Key? key}) : super(key: key);
+  
+  NewChatPageController newChatPageController = Get.put(NewChatPageController());
 
-
-class _NewChatPageState extends State<NewChatPage> {
-  void _moreActionHandler() {
+  void moreActionHandler() {
 
   }
-  void _navigateChatRoomPageHandler(int index) {
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => ChatRoomPage()));
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) => ChatRoomPage(userContact: demoContacts[index])
-      )
-    ).then((value) => {
+  void navigateChatRoomPageHandler(int index) {
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (BuildContext context) => ChatRoomPage(userContact: demoContacts[index])
+    //   )
+    // ).then((value) => {
       
-    });
+    // });
+
+    Get.toNamed("/messenger/chat_room_page", arguments: demoContacts[index]);
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,12 +45,12 @@ class _NewChatPageState extends State<NewChatPage> {
             );
           },
         ),
-        title: Text(widget.pageTitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+        title: Text(newChatPageController.pageTitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert),
-            onPressed: _moreActionHandler,  
+            onPressed: moreActionHandler,  
           ),
         ],
       ),
@@ -83,7 +84,7 @@ class _NewChatPageState extends State<NewChatPage> {
                           child: ListView.builder(
                             itemCount: 3,
                             itemBuilder: (context, index) => GestureDetector(
-                              onTap: () => _navigateChatRoomPageHandler(index),
+                              onTap: () => navigateChatRoomPageHandler(index),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Container(
@@ -151,7 +152,7 @@ class _NewChatPageState extends State<NewChatPage> {
                           child: ListView.builder(
                               itemCount: demoContacts.length,
                               itemBuilder: (context, index) => GestureDetector(
-                                onTap: () => _navigateChatRoomPageHandler(index),
+                                onTap: () => navigateChatRoomPageHandler(index),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 10),
                                   child: Container(
@@ -222,3 +223,4 @@ class _NewChatPageState extends State<NewChatPage> {
     );
   }
 }
+

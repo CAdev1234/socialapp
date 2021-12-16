@@ -1,6 +1,6 @@
 
 enum ChatMessageType { text, audio, image, video }
-enum MessageStatus { not_sent, pending, not_view, viewed, deleted }
+enum MessageStatus { notSent, pending, notView, viewed, deleted }
 
 class ChatMessage {
   final String userId;
@@ -34,7 +34,7 @@ List demoChatMessage = [
     userId: '1',
     text: "Hey, Jillian",
     messageType: ChatMessageType.video,
-    messageStatus: MessageStatus.not_view,
+    messageStatus: MessageStatus.notView,
     isMine: false,
     createdAt: '04:15 PM'
   ),
@@ -42,7 +42,7 @@ List demoChatMessage = [
     userId: '2',
     text: "I'm doing great, thanks",
     messageType: ChatMessageType.video,
-    messageStatus: MessageStatus.not_view,
+    messageStatus: MessageStatus.notView,
     isMine: false,
     createdAt: '04:15 PM'
   ),
@@ -56,6 +56,70 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '4',
+    text: "Lorem ipsum dolor sit amet.",
+    messageType: ChatMessageType.text,
+    messageStatus: MessageStatus.viewed,
+    isMine: true,
+    createdAt: '04:15 PM'
+  ),
+  ChatMessage(
+    userId: '5',
+    text: "Hey, Jillian",
+    messageType: ChatMessageType.video,
+    messageStatus: MessageStatus.notView,
+    isMine: false,
+    createdAt: '04:15 PM'
+  ),
+  ChatMessage(
+    userId: '6',
+    text: "I'm doing great, thanks",
+    messageType: ChatMessageType.video,
+    messageStatus: MessageStatus.notView,
+    isMine: false,
+    createdAt: '04:15 PM'
+  ),
+  ChatMessage(
+    userId: '7',
+    text: "Hey, Jillian",
+    messageType: ChatMessageType.video,
+    messageStatus: MessageStatus.notView,
+    isMine: false,
+    createdAt: '04:15 PM'
+  ),
+  ChatMessage(
+    userId: '8',
+    text: "I'm doing great, thanks",
+    messageType: ChatMessageType.video,
+    messageStatus: MessageStatus.notView,
+    isMine: false,
+    createdAt: '04:15 PM'
+  ),
+  ChatMessage(
+    userId: '9',
+    text: "I'm doing good, thank you",
+    messageType: ChatMessageType.audio,
+    messageStatus: MessageStatus.viewed,
+    isMine: true,
+    createdAt: '04:15 PM'
+  ),
+  ChatMessage(
+    userId: '10',
+    text: "Lorem ipsum dolor sit amet.",
+    messageType: ChatMessageType.text,
+    messageStatus: MessageStatus.viewed,
+    isMine: true,
+    createdAt: '04:15 PM'
+  ),
+  ChatMessage(
+    userId: '11',
+    text: "I'm doing good, thank you",
+    messageType: ChatMessageType.audio,
+    messageStatus: MessageStatus.viewed,
+    isMine: true,
+    createdAt: '04:15 PM'
+  ),
+  ChatMessage(
+    userId: '12',
     text: "Lorem ipsum dolor sit amet.",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,

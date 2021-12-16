@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:socialapp/components/messenger/datepicker_input.dart';
 import 'package:socialapp/components/messenger/general_input.dart';
 import 'package:socialapp/components/messenger/general_textarea.dart';
 import 'package:socialapp/components/messenger/password_input.dart';
 import 'package:socialapp/constants.dart';
+import 'package:socialapp/pages/messenger/profile/controller/profile_edit_page_controller.dart';
+import 'package:socialapp/pages/messenger/profile/profile_complete_page.dart';
 
-class ProfileEditPage extends StatefulWidget {
-  const ProfileEditPage({Key? key}) : super(key: key);
+class ProfileEditPage extends StatelessWidget {
+  
+  ProfileEditPage({Key? key}) : super(key: key);
 
-  final String pageTitle = "Personal Profile";
+  ProfileEditPageController pageController = Get.put(ProfileEditPageController());
 
-  @override
-  State<ProfileEditPage> createState() => _ProfileEditPageState();
-}
-
-class _ProfileEditPageState extends State<ProfileEditPage> {
-
-  @override
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,7 +31,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             );
           },
         ),
-        title: Text(widget.pageTitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+        title: Text(pageController.pageTitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -138,7 +135,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         ],
                       ),
                       const SizedBox(height: 8,),
-                      PasswordInput(),
+                      const PasswordInput(),
 
                       const SizedBox(height: 17,),
                       Row(
@@ -211,7 +208,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                 color: Colors.white
               ),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed('/messenger/profile/profile_complete_page');
+                },
                 color: cPrimaryColor1,
                 height: 38,
                 shape: RoundedRectangleBorder(
@@ -229,5 +228,4 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       )
     );
   }
-
 }

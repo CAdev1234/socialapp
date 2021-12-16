@@ -3,7 +3,7 @@ import 'package:socialapp/constants.dart';
 
 
 class CustomTabBar extends StatefulWidget {
-  const CustomTabBar({
+  CustomTabBar({
     Key? key, 
     required this.tabList, 
     required this.activeColor, 
@@ -28,7 +28,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: 24.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
