@@ -1,86 +1,26 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:socialapp/components/messenger/chat_input.dart';
-import 'package:socialapp/components/animation/custom_popup_route.dart';
+// import 'package:socialapp/components/messenger/msg_card.dart';
 import 'package:socialapp/components/messenger/msg_card/msg_card.dart';
 import 'package:socialapp/constants.dart';
 
 import 'package:socialapp/models/chat_message.dart';
 import 'package:socialapp/models/contact.dart';
-import 'package:socialapp/models/transition_type.dart';
-import 'package:socialapp/pages/messenger/chat_room_page/components/msg_type_popup.dart';
+import 'package:socialapp/pages/messenger/chat_room_page/controller/chat_room_page_controller.dart';
 
-class ChatRoomPage extends StatefulWidget {
+class ChatRoomPage extends StatelessWidget {
   
-  const ChatRoomPage({Key? key, required this.userContact}) : super(key: key);
-  final Contact userContact;
+  ChatRoomPage({
+    Key? key,
+    required this.clientContact,
+  }) : super(key: key);
+
+  Contact clientContact;
+  
   
 
-  @override
-  State<ChatRoomPage> createState() => _ChatRoomState();
-  
-}
-
-
-class _ChatRoomState extends State<ChatRoomPage> {
-
-  final List categoryList = ["All", "Saved", "Media"];
-  int categoryIdx = 0;
-
-  bool enableChatInputFocus = false;
-  bool enableRecord = false;
-
-  final keyOne = GlobalKey();
-  // Future httpGet(String url) {
-  //   return Future.delayed(const Duration(seconds: 3), () {
-  //     debugPrint("OKKKKKKKK");
-  //   });
-  // }
-
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback(
-      (_) => ShowCaseWidget.of(context)!.startShowCase(
-        [keyOne]
-      )
-    );
-  }
-
-  void selectCategoryHandler(int idx) {
-    setState(() {
-      categoryIdx = idx;
-    });
-  }
-
-  focusChatInputHandler(bool value) {
-    setState(() {
-      enableChatInputFocus = value;
-    });
-  }
-
-  createRecordHandler(bool value) {
-    setState(() {
-      enableRecord = value;
-    });
-  }
-
-  openMsgTypePopupHandler(context) {
-    Navigator.of(context).push(
-      CustomPopupRoute(
-        builder: (context) {
-          return const MsgTypePopupBody();
-        }, 
-        dismissible: false, 
-        color: Colors.black54,
-        transitionType: TransitionType.slideUp,
-        duration: 500,
-        label: "Msg Type Popup" 
-      )
-    );
-  }
 
   Widget emptyBody() {
     return Column(
@@ -100,29 +40,112 @@ class _ChatRoomState extends State<ChatRoomPage> {
     );
   }
 
-  Widget chatBody() {
+  Widget chatBody(ChatRoomPageController pageController) {
     return Expanded(
       child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
         itemCount: demoChatMessage.length,
         itemBuilder: (context, index) => GestureDetector(
           child: Container(
             margin: const EdgeInsets.only(bottom: 5),
-            child: Row(
+            child: Obx(() => Row(
               mainAxisAlignment: demoChatMessage[index].isMine ? MainAxisAlignment.start : MainAxisAlignment.end,
               children: [
-                MsgCard(isMine: demoChatMessage[index].isMine, text: demoChatMessage[index].text, createdAt: demoChatMessage[index].createdAt,)
+                pageController.enableMsgCardOptions.value ? Showcase.withWidget(
+                  // key: pageController.keyList[index],
+                  key: pageController.keyList[index],
+                  width: 230,
+                  overlayPadding: const EdgeInsets.all(0),
+                  radius: const BorderRadius.all(Radius.circular(10)),
+                  disableAnimation: false,
+                  height: 34,
+                  child: GestureDetector(
+                    child: MsgCard(
+                      userContact: clientContact,
+                      isMine: demoChatMessage[index].isMine, 
+                      text: demoChatMessage[index].text, 
+                      createdAt: demoChatMessage[index].createdAt,
+                      messageActionStatus: demoChatMessage[index].messageActionStatus,
+                    )
+                  ),
+                  onTargetClick: () => {debugPrint("onTargetClick event")},
+                  container: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    width: 230,
+                    height: 34,
+                    color: Colors.transparent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () => pageController.msgCopyHandler(index),
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 17,
+                            child: Icon(Icons.copy_rounded, color: cContentDisableColor,),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => pageController.msgMarkHandler(index),
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 17,
+                            child: Icon(Icons.bookmark, color: cContentDisableColor,),
+                          )
+                        ),
+                        GestureDetector(
+                          onTap: () => pageController.msgReplyHanlder(index),
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 17,
+                            child: Icon(Icons.undo, color: cContentDisableColor,),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => pageController.msgForwardHandler(index),
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 17,
+                            child: Icon(Icons.redo, color: cContentDisableColor,),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => pageController.msgDeleteHandler(index),
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 17,
+                            child: Icon(Icons.delete, color: cWarnColor,),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+
+                ) 
+                : 
+                GestureDetector(
+                  onLongPress: () => pageController.showMsgCardOptionsHandler(context, index),
+                  child: MsgCard(
+                    userContact: clientContact,
+                    isMine: demoChatMessage[index].isMine, 
+                    text: demoChatMessage[index].text, 
+                    createdAt: demoChatMessage[index].createdAt,
+                    messageActionStatus: demoChatMessage[index].messageActionStatus
+                  )
+                )
               ],
-            ),
+            ),)
           ),
         ) 
       ),
     );
   }
 
+  
 
   @override
   Widget build(BuildContext context) {
+    // ChatRoomPageController pageController = Get.put(ChatRoomPageController())..showMsgCardOptionsHandler(context);
+    ChatRoomPageController pageController = Get.put(ChatRoomPageController())..initializeController(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: cPrimaryColor1,
@@ -133,11 +156,7 @@ class _ChatRoomState extends State<ChatRoomPage> {
           builder: (BuildContext context) {
             return IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: Showcase(
-                key: keyOne, 
-                child: Icon(Icons.arrow_back_ios, size: cFontSize16), 
-                description: "description"
-              ),
+              icon: const Icon(Icons.arrow_back_ios, size: cFontSize16),
               alignment: const Alignment(0, 0.0), // move icon a bit to the left
             );
           },
@@ -155,7 +174,7 @@ class _ChatRoomState extends State<ChatRoomPage> {
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(17))),
                   child: CircleAvatar(
-                    backgroundImage: AssetImage(widget.userContact.image),
+                    backgroundImage: AssetImage(clientContact.image),
                     radius: 16,
                   ),
                 ),
@@ -168,11 +187,11 @@ class _ChatRoomState extends State<ChatRoomPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '${widget.userContact.firstname} ${widget.userContact.lastname}',
+                          '${clientContact.firstname} ${clientContact.lastname}',
                           style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(width: 6),
-                        widget.userContact.isVerified ? Container(
+                        clientContact.isVerified ? Container(
                           width: 14,
                           height: 14,
                           decoration: const BoxDecoration(
@@ -235,20 +254,20 @@ class _ChatRoomState extends State<ChatRoomPage> {
                           alignment: Alignment.center,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: categoryList.asMap().map((idx, item) => MapEntry(idx, 
+                            children: pageController.categoryList.asMap().map((idx, item) => MapEntry(idx, 
                               GestureDetector(
-                                onTap: () => selectCategoryHandler(idx),
-                                child: Container(
+                                onTap: () => pageController.selectCategoryHandler(idx),
+                                child: Obx(() => Container(
                                   height: 24, width: 52,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: categoryIdx == idx ? cPrimaryColor1 : Colors.transparent, borderRadius: const BorderRadius.all(Radius.circular(12))
+                                    color: pageController.categoryIdx.value == idx ? cPrimaryColor1 : Colors.transparent, borderRadius: const BorderRadius.all(Radius.circular(12))
                                   ),
                                   child: Text(
                                     item, 
-                                    style: TextStyle(color: categoryIdx == idx ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold)
+                                    style: TextStyle(color: pageController.categoryIdx.value == idx ? Colors.white : Colors.black, fontSize: cFontSize12, fontWeight: FontWeight.bold)
                                   ),
-                                ),
+                                ),)
                               ),
                             )).values.toList()
                           ),
@@ -277,7 +296,7 @@ class _ChatRoomState extends State<ChatRoomPage> {
                         ),
                         const SizedBox(height: cDefaultPadding * 0.8),
                         
-                        demoChatMessage.isEmpty ? emptyBody() : chatBody(),
+                        demoChatMessage.isEmpty ? emptyBody() : chatBody(pageController),
                       ],
                     ),
                   ) 
@@ -287,18 +306,18 @@ class _ChatRoomState extends State<ChatRoomPage> {
                   width: size.width,
                   padding: const EdgeInsets.symmetric(horizontal: cDefaultPadding * 0.8, vertical: 5),
                   decoration: const BoxDecoration(color: cChatRoomBgLightTheme),
-                  child: Row(
+                  child: Obx(() => Row(
                     children: [
-                      !enableRecord ? Expanded(
+                      !pageController.enableRecord.value ? Expanded(
                         child: Row(
                           children: [
                             GestureDetector(
-                              onTap: () => openMsgTypePopupHandler(context),
+                              onTap: () => pageController.openMsgTypePopupHandler(context),
                               child: const Icon(Icons.add, size: 25, color: Colors.black),
                             ),
                             const SizedBox(width: cDefaultPadding * 0.8),
                             Expanded(
-                              child: ChatInput(returnFocusState: (bool val) => focusChatInputHandler(val))
+                              child: ChatInput(returnFocusState: (bool val) => pageController.focusChatInputHandler(val))
                             ),
                             const SizedBox(width: cDefaultPadding * 0.7),
                           ]
@@ -327,7 +346,7 @@ class _ChatRoomState extends State<ChatRoomPage> {
                         ),
                       ),
                       
-                      !enableChatInputFocus && !enableRecord ? Row(
+                      !pageController.enableChatInputFocus.value && !pageController.enableRecord.value ? Row(
                         children: [
                           GestureDetector(
                             onTap: () {},
@@ -335,19 +354,17 @@ class _ChatRoomState extends State<ChatRoomPage> {
                           ),
                           const SizedBox(width: cDefaultPadding),
                           GestureDetector(
-                            onTap: () => createRecordHandler(true),
+                            onTap: () => pageController.createRecordHandler(true),
                             child: const Icon(Icons.mic, color: Colors.black, size: 25),
                           )
                         ],
                       ) : const Icon(Icons.send, color: cPrimaryColor1, size: 25,),
                       
                     ],
-                  ),
+                  ),)
                 )
-
               ]
             ),
-            
           ]
         )
       )

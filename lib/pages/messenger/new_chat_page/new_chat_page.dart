@@ -6,6 +6,7 @@ import 'package:socialapp/constants.dart';
 import 'package:socialapp/components/search_input.dart';
 import 'package:socialapp/models/contact.dart';
 import 'package:socialapp/pages/messenger/chat_room_page/chat_room_page.dart';
+import 'package:socialapp/pages/messenger/chat_room_page/controller/chat_room_page_controller.dart';
 import 'package:socialapp/pages/messenger/new_chat_page/controller/new_chat_page_controller.dart';
 // import 'package:socialapp/pages/messenger/chat_room_page/chat_room_page.dart';
 
@@ -15,6 +16,7 @@ class NewChatPage extends StatelessWidget {
   NewChatPage({Key? key}) : super(key: key);
   
   NewChatPageController newChatPageController = Get.put(NewChatPageController());
+  ChatRoomPageController chatRoomPageController = Get.put(ChatRoomPageController());
 
   void moreActionHandler() {
 
@@ -22,9 +24,12 @@ class NewChatPage extends StatelessWidget {
   void navigateChatRoomPageHandler(int index, BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (BuildContext context) => ShowCaseWidget(builder: Builder(
-          builder: (_) => ChatRoomPage(userContact: demoContacts[index]),
-        ))
+        builder: (BuildContext context) => ShowCaseWidget(
+          builder: Builder(
+            builder: (_) => ChatRoomPage(clientContact: demoContacts[index],),
+          ),
+          onFinish: () => chatRoomPageController.closeMsgCardOptionsHandler(),
+        )
       )
     ).then((value) => {
       

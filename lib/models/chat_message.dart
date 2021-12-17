@@ -1,12 +1,14 @@
 
 enum ChatMessageType { text, audio, image, video }
 enum MessageStatus { notSent, pending, notView, viewed, deleted }
+enum MessageActionStatus { none, copied, marked, replied, forwarded, deleted }
 
 class ChatMessage {
   final String userId;
   final String text;
   final ChatMessageType messageType;
   final MessageStatus messageStatus;
+  final MessageActionStatus messageActionStatus;
   final bool isMine;
   String createdAt;
 
@@ -15,6 +17,7 @@ class ChatMessage {
     required this.text,
     required this.messageType,
     required this.messageStatus,
+    required this.messageActionStatus,
     required this.isMine,
     required this.createdAt
   });
@@ -27,6 +30,7 @@ List demoChatMessage = [
     text: "Hello John",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
+    messageActionStatus: MessageActionStatus.none,
     isMine: true,
     createdAt: '04:15 PM'
   ),
@@ -35,6 +39,7 @@ List demoChatMessage = [
     text: "Hey, Jillian",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
+    messageActionStatus: MessageActionStatus.replied,
     isMine: false,
     createdAt: '04:15 PM'
   ),
@@ -43,6 +48,7 @@ List demoChatMessage = [
     text: "I'm doing great, thanks",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
+    messageActionStatus: MessageActionStatus.forwarded,
     isMine: false,
     createdAt: '04:15 PM'
   ),
@@ -51,6 +57,7 @@ List demoChatMessage = [
     text: "I'm doing good, thank you",
     messageType: ChatMessageType.audio,
     messageStatus: MessageStatus.viewed,
+    messageActionStatus: MessageActionStatus.marked,
     isMine: true,
     createdAt: '04:15 PM'
   ),
@@ -59,6 +66,7 @@ List demoChatMessage = [
     text: "Lorem ipsum dolor sit amet.",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
+    messageActionStatus: MessageActionStatus.deleted,
     isMine: true,
     createdAt: '04:15 PM'
   ),
@@ -67,6 +75,7 @@ List demoChatMessage = [
     text: "Hey, Jillian",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
+    messageActionStatus: MessageActionStatus.none,
     isMine: false,
     createdAt: '04:15 PM'
   ),
@@ -75,6 +84,7 @@ List demoChatMessage = [
     text: "I'm doing great, thanks",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
+    messageActionStatus: MessageActionStatus.marked,
     isMine: false,
     createdAt: '04:15 PM'
   ),
@@ -83,6 +93,7 @@ List demoChatMessage = [
     text: "Hey, Jillian",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
+    messageActionStatus: MessageActionStatus.replied,
     isMine: false,
     createdAt: '04:15 PM'
   ),
@@ -91,6 +102,7 @@ List demoChatMessage = [
     text: "I'm doing great, thanks",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
+    messageActionStatus: MessageActionStatus.forwarded,
     isMine: false,
     createdAt: '04:15 PM'
   ),
@@ -99,6 +111,7 @@ List demoChatMessage = [
     text: "I'm doing good, thank you",
     messageType: ChatMessageType.audio,
     messageStatus: MessageStatus.viewed,
+    messageActionStatus: MessageActionStatus.deleted,
     isMine: true,
     createdAt: '04:15 PM'
   ),
@@ -107,6 +120,7 @@ List demoChatMessage = [
     text: "Lorem ipsum dolor sit amet.",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
+    messageActionStatus: MessageActionStatus.none,
     isMine: true,
     createdAt: '04:15 PM'
   ),
@@ -115,6 +129,7 @@ List demoChatMessage = [
     text: "I'm doing good, thank you",
     messageType: ChatMessageType.audio,
     messageStatus: MessageStatus.viewed,
+    messageActionStatus: MessageActionStatus.none,
     isMine: true,
     createdAt: '04:15 PM'
   ),
@@ -123,6 +138,7 @@ List demoChatMessage = [
     text: "Lorem ipsum dolor sit amet.",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
+    messageActionStatus: MessageActionStatus.none,
     isMine: true,
     createdAt: '04:15 PM'
   ),
