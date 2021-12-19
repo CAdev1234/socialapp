@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// String
+const cCopySuccessStr = "Copied to clipboard.";
+
 // Color
 const cPrimaryColor1 = Color.fromRGBO(21, 100, 192, 1);
 const cPrimaryColor2 = Color.fromRGBO(126, 175, 232, 1);
@@ -11,6 +14,7 @@ const cWarnColor = Color.fromRGBO(200, 81, 81, 1);
 const cInputBorderColor = Color.fromRGBO(232, 235, 241, 1);
 const cIconColor = Color.fromRGBO(188, 195, 207, 1);
 const cActiveColor = Color.fromRGBO(100, 168, 121, 1);
+const cLockColor = Color.fromRGBO(230, 191, 76, 1);
 
 const cContentColorLightTheme = Colors.black;
 const cContentDisableColor = Color.fromRGBO(188, 195, 207, 1);

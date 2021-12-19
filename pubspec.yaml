@@ -37,6 +37,8 @@ dependencies:
   google_fonts: ^2.1.0
   get: ^4.6.1
   showcaseview: ^1.1.4
+  uuid: ^3.0.5
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

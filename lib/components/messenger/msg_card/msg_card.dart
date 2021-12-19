@@ -25,23 +25,35 @@ class MsgCard extends StatelessWidget {
   MsgCardController msgCardController = Get.put(MsgCardController());
 
 
-  Widget repliedPart() {
+  Widget repliedPart(String repliedText) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [
-            Icon(Icons.redo, size: 20, color: Color.fromRGBO(255, 255, 255, 0.6)),
-            SizedBox(width: 6,),
+          children: [
+            Icon(
+              Icons.redo, 
+              size: 20, 
+              color: isMine ? cContentDisableColor : const Color.fromRGBO(255, 255, 255, 0.6)
+            ),
+            const SizedBox(width: 6,),
             Text(
               "Reply",
-              style: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.6), fontSize: cFontSize10, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                color: isMine ? cContentDisableColor : const Color.fromRGBO(255, 255, 255, 0.6), 
+                fontSize: cFontSize10, 
+                fontStyle: FontStyle.italic
+              ),
             ),
           ],
         ),
-        const Text(
-          "I'm doing good, thank you",
-          style: TextStyle(fontSize: cFontSize10, color: Color.fromRGBO(255, 255, 255, 0.6), fontStyle: FontStyle.italic),
+        Text(
+          repliedText,
+          style: TextStyle(
+            fontSize: cFontSize10, 
+            color: isMine ? cContentDisableColor : const Color.fromRGBO(255, 255, 255, 0.6), 
+            fontStyle: FontStyle.italic
+          ),
         ),
         const Divider(height: 10, color: Colors.red, thickness: 1,)
       ],
@@ -51,12 +63,20 @@ class MsgCard extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: const [
-            Icon(Icons.redo, size: 20, color: Color.fromRGBO(255, 255, 255, 0.6)),
-            SizedBox(width: 6,),
+          children: [
+            Icon(
+              Icons.redo, 
+              size: 20, 
+              color: isMine ? cContentDisableColor : const Color.fromRGBO(255, 255, 255, 0.6)
+            ),
+            const SizedBox(width: 6),
             Text(
               "Forwarded",
-              style: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.6), fontSize: cFontSize10, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                color: isMine ? cContentDisableColor : const Color.fromRGBO(255, 255, 255, 0.6), 
+                fontSize: cFontSize10, 
+                fontStyle: FontStyle.italic
+              ),
             ),
           ],
         ),
@@ -65,12 +85,19 @@ class MsgCard extends StatelessWidget {
   }
   Widget deletedPart() {
     return Row(
-      children: const [
-        Icon(Icons.delete, color: cContentDisableColor, size: 16,),
-        SizedBox(width: 5,),
+      children: [
+        Icon(
+          Icons.delete, 
+          color: isMine ? cContentDisableColor : const Color.fromRGBO(255, 255, 255, 0.6), 
+          size: 16
+        ),
+        const SizedBox(width: 5,),
         Text(
           "The message has been deleted",
-          style: TextStyle(color: cContentDisableColor, fontSize: cFontSize10),
+          style: TextStyle(
+            color: isMine ? cContentDisableColor : const Color.fromRGBO(255, 255, 255, 0.6), 
+            fontSize: cFontSize10
+          ),
         )
       ]
     );
@@ -87,13 +114,13 @@ class MsgCard extends StatelessWidget {
             const SizedBox(width: 10,),
             Text(
               '${userContact.firstname} ${userContact.lastname}',
-              style: TextStyle(fontSize: cFontSize12, fontWeight: FontWeight.w600, color: isMine ? Colors.black : Colors.white),
+              style: TextStyle(fontSize: cFontSize12, fontWeight: FontWeight.w600, color: isMine ? cContentDisableColor : const Color.fromRGBO(255, 255, 255, 0.6)),
             ),
-            
-            const CircleAvatar(
-              backgroundColor: cPrimaryColor2,
+            const SizedBox(width: 10,),
+            CircleAvatar(
+              backgroundColor: isMine ? cPrimaryColor2 : cPrimaryColor1,
               radius: 10,
-              child: Icon(Icons.bookmark, color: Colors.white, size: 12,)
+              child: const Icon(Icons.bookmark, color: Colors.white, size: 12,)
             ),
             
           ],
@@ -116,7 +143,7 @@ class MsgCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (messageActionStatus == MessageActionStatus.replied) repliedPart(),
+          if (messageActionStatus == MessageActionStatus.replied) repliedPart("I am doing good."),
           if (messageActionStatus == MessageActionStatus.forwarded) forwardedPart(),
           if (messageActionStatus == MessageActionStatus.deleted) deletedPart(),
           if (messageActionStatus == MessageActionStatus.marked) markedPart(),

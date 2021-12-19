@@ -43,6 +43,7 @@ class ChatRoomPage extends StatelessWidget {
   Widget chatBody(ChatRoomPageController pageController) {
     return Expanded(
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(), 
         itemCount: demoChatMessage.length,
         itemBuilder: (context, index) => GestureDetector(
           child: Container(
@@ -51,7 +52,6 @@ class ChatRoomPage extends StatelessWidget {
               mainAxisAlignment: demoChatMessage[index].isMine ? MainAxisAlignment.start : MainAxisAlignment.end,
               children: [
                 pageController.enableMsgCardOptions.value ? Showcase.withWidget(
-                  // key: pageController.keyList[index],
                   key: pageController.keyList[index],
                   width: 230,
                   overlayPadding: const EdgeInsets.all(0),
@@ -144,7 +144,6 @@ class ChatRoomPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ChatRoomPageController pageController = Get.put(ChatRoomPageController())..showMsgCardOptionsHandler(context);
     ChatRoomPageController pageController = Get.put(ChatRoomPageController())..initializeController(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(

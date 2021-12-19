@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:socialapp/pages/messenger/main_page/controller/main_page_controller.dart';
 import 'package:socialapp/pages/messenger/main_page/main_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
+
+  MainPageController mainPageController = MainPageController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,19 @@ class HomePage extends StatelessWidget {
             TextButton(
               onPressed: () {
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => const MessengerMainPage()));
-                Get.to(() => MessengerMainPage());
+                // Get.to(() => MessengerMainPage());
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ShowCaseWidget(
+                      builder: Builder(
+                        builder: (_) => MessengerMainPage(),
+                      ),
+                      onFinish: () => mainPageController.closeMsgCardOptionsHandler(),
+                    )
+                  )
+                ).then((value) => {
+                  
+                });
               }, 
               child: Column(
                 children: const [

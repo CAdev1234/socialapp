@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:socialapp/components/animation/custom_popup_route.dart';
+import 'package:socialapp/models/chat_group.dart';
 import 'package:socialapp/models/transition_type.dart';
 import 'package:socialapp/pages/messenger/main_page/components/more_popup_body.dart';
 
@@ -12,6 +14,10 @@ class MainPageController extends GetxController {
   RxInt enableCategory = 0.obs;
   List chatTypeList = ['Primary', 'General', 'Requests'];
   RxInt enableChatType = 0.obs;
+
+  List groupKeyList = [GlobalKey(), GlobalKey()];
+
+  RxBool enableMsgCardOptions = false.obs;
 
 
 
@@ -37,12 +43,50 @@ class MainPageController extends GetxController {
       ));
   }
 
+  showMsgCardOptionsHandler(BuildContext context, int idx) {
+    enableMsgCardOptions.value = true;
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => ShowCaseWidget.of(context)!.startShowCase(
+        [groupKeyList[idx]]
+      )
+    );
+  }
+
+  closeMsgCardOptionsHandler() {
+    enableMsgCardOptions.value = false;
+  }
+  
+  addMemberToGroupHandler() {
+
+  }
+
+  pinGroupHandler() {
+
+  }
+
+  muteGroupHandler() {
+
+  }
+
+  bagGroupHandler() {
+
+  }
+
+  leaveGroupHandler() {
+
+  }
   
 
   @override
   void onInit() { // called immediately after the widget is allocated memory
     // fetchApi();
     super.onInit();
+    List listData = [];
+    for (var i = 0; i < demoGroups.length; i++) {
+      listData.add(GlobalKey());
+    }
+    groupKeyList = listData;
+    debugPrint(groupKeyList.toString());
   }
 
   @override

@@ -2,27 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:socialapp/models/chat_group.dart';
+import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 import 'package:socialapp/components/animation/custom_popup_route.dart';
+import 'package:socialapp/constants.dart';
 import 'package:socialapp/models/chat_message.dart';
 import 'package:socialapp/models/transition_type.dart';
 import 'package:socialapp/pages/messenger/chat_room_page/components/msg_type_popup.dart';
 
 class ChatRoomPageController extends GetxController {
   
-  late BuildContext showcaseContext;
+  late BuildContext pageContext;
   List categoryList = ["All", "Saved", "Media"];
   RxInt categoryIdx = 0.obs;
-
   RxBool enableChatInputFocus = false.obs;
   RxBool enableRecord = false.obs;
-
-  final chatKeyForOverlay = GlobalKey();
   RxBool enableMsgCardOptions = false.obs;
-
   late List keyList;
 
+  // RxString 
+
   initializeController(BuildContext context) {
-    showcaseContext = context;
+    pageContext = context;
   }
   
   Future httpGet(String url) {
@@ -72,24 +74,45 @@ class ChatRoomPageController extends GetxController {
   }
 
   Future<void> msgCopyHandler(int idx) async {
+    SnackBar copySnackBar = const SnackBar(
+      content: Text(cCopySuccessStr),
+      backgroundColor: cPrimaryColor1,
+    );
     closeMsgCardOptionsHandler();
     await Clipboard.setData(ClipboardData(text: demoChatMessage[idx].text));
+    ScaffoldMessenger.of(pageContext).showSnackBar(copySnackBar);
   }
 
   msgMarkHandler(int idx) {
     closeMsgCardOptionsHandler();
+    demoChatMessage[idx].messageActionStatus = MessageActionStatus.marked;
   }
 
   msgReplyHanlder(int idx) {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
     closeMsgCardOptionsHandler();
+    ChatMessage repliedMsg = ChatMessage(
+      userId: const Uuid().v1(), 
+      text: "text", 
+      messageType: ChatMessageType.text, 
+      messageStatus: MessageStatus.notSent, 
+      messageActionStatus: MessageActionStatus.replied, 
+      isMine: true, 
+      createdAt: formatter.format(now)
+    );
+    demoChatMessage.add(repliedMsg);
+    keyList.add(GlobalKey());
   }
 
   msgForwardHandler(int idx) {
     closeMsgCardOptionsHandler();
+    demoChatMessage[idx].messageActionStatus = MessageActionStatus.forwarded;
   }
 
   msgDeleteHandler(int idx) {
     closeMsgCardOptionsHandler();
+    demoChatMessage[idx].messageActionStatus = MessageActionStatus.deleted;
   }
  
   @override
@@ -97,7 +120,7 @@ class ChatRoomPageController extends GetxController {
     // fetchApi();
     super.onInit();
     List listData = [];
-    for (var i = 0; i < demoChatMessage.length; i++) {
+    for (var i = 0; i < demoGroups.length; i++) {
       listData.add(GlobalKey());
     }
     keyList = listData;
