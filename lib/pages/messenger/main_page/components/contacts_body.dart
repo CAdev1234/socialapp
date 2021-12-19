@@ -7,6 +7,9 @@ import 'package:socialapp/pages/messenger/main_page/controller/main_page_control
 import 'package:socialapp/models/contact.dart';
 
 class ContactsBody extends StatelessWidget {
+
+  ContactsBody({Key? key}) : super(key: key);
+
   MainPageController mainPageController = MainPageController();
 
   @override

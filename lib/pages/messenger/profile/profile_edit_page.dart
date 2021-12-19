@@ -6,7 +6,6 @@ import 'package:socialapp/components/messenger/general_textarea.dart';
 import 'package:socialapp/components/messenger/password_input.dart';
 import 'package:socialapp/constants.dart';
 import 'package:socialapp/pages/messenger/profile/controller/profile_edit_page_controller.dart';
-import 'package:socialapp/pages/messenger/profile/profile_complete_page.dart';
 
 class ProfileEditPage extends StatelessWidget {
   

@@ -37,4 +37,32 @@ List demoGroups = [
     isVerified: false,
     createdAt: "12/12/2021",
   ),
+  ChatGroup(
+    id: '0',
+    groupName: "Astro Boys",
+    type: ChatGroupType.public,
+    isVerified: true,
+    createdAt: "12/12/2021",
+  ),
+  ChatGroup(
+    id: '1',
+    groupName: "Altsome",
+    type: ChatGroupType.private,
+    isVerified: false,
+    createdAt: "12/12/2021",
+  ),
+  ChatGroup(
+    id: '0',
+    groupName: "Astro Boys",
+    type: ChatGroupType.public,
+    isVerified: true,
+    createdAt: "12/12/2021",
+  ),
+  ChatGroup(
+    id: '1',
+    groupName: "Altsome",
+    type: ChatGroupType.private,
+    isVerified: false,
+    createdAt: "12/12/2021",
+  ),
 ];

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:socialapp/constants.dart';
 
 class GeneralInput extends StatefulWidget {
-  GeneralInput({Key? key, required double this.inputHeight }) : super(key: key);
+  GeneralInput({Key? key, required this.inputHeight }) : super(key: key);
 
   double inputHeight;
 

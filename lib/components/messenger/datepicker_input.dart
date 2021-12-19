@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:socialapp/constants.dart';
 
 class DatePickerInput extends StatefulWidget {
-  DatePickerInput({Key? key, required double this.inputHeight}) : super(key: key);
+  DatePickerInput({Key? key, required this.inputHeight}) : super(key: key);
 
   double inputHeight;
 

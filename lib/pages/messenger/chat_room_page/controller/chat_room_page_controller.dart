@@ -128,15 +128,15 @@ class ChatRoomPageController extends GetxController {
     
   }
 
-  @override
-  void onReady() { // called after the widget is rendered on screen
-    // showIntroDialog();
-    super.onReady();
-  }
+  // @override
+  // void onReady() { // called after the widget is rendered on screen
+  //   // showIntroDialog();
+  //   super.onReady();
+  // }
 
-  @override
-  void onClose() { // called just before the Controller is deleted from memory
-    // closeStream();
-    super.onClose();
-  }
+  // @override
+  // void onClose() { // called just before the Controller is deleted from memory
+  //   // closeStream();
+  //   super.onClose();
+  // }
 }

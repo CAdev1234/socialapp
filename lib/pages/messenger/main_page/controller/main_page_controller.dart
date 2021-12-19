@@ -15,9 +15,9 @@ class MainPageController extends GetxController {
   List chatTypeList = ['Primary', 'General', 'Requests'];
   RxInt enableChatType = 0.obs;
 
-  List groupKeyList = [GlobalKey(), GlobalKey()];
+  List groupKeyList = List.generate(demoGroups.length, (index) => GlobalKey());
 
-  RxBool enableMsgCardOptions = false.obs;
+  RxBool enableGroupMsgCardOptions = false.obs;
 
 
 
@@ -44,7 +44,8 @@ class MainPageController extends GetxController {
   }
 
   showMsgCardOptionsHandler(BuildContext context, int idx) {
-    enableMsgCardOptions.value = true;
+    debugPrint("long press event");
+    enableGroupMsgCardOptions.value = true;
     WidgetsBinding.instance!.addPostFrameCallback(
       (_) => ShowCaseWidget.of(context)!.startShowCase(
         [groupKeyList[idx]]
@@ -53,7 +54,7 @@ class MainPageController extends GetxController {
   }
 
   closeMsgCardOptionsHandler() {
-    enableMsgCardOptions.value = false;
+    enableGroupMsgCardOptions.value = false;
   }
   
   addMemberToGroupHandler() {
@@ -77,28 +78,28 @@ class MainPageController extends GetxController {
   }
   
 
-  @override
-  void onInit() { // called immediately after the widget is allocated memory
-    // fetchApi();
-    super.onInit();
-    List listData = [];
-    for (var i = 0; i < demoGroups.length; i++) {
-      listData.add(GlobalKey());
-    }
-    groupKeyList = listData;
-    debugPrint(groupKeyList.toString());
-  }
+  // @override
+  // void onInit() { // called immediately after the widget is allocated memory
+  //   // fetchApi();
+  //   super.onInit();
+  //   // List listData = [];
+  //   // for (var i = 0; i < demoGroups.length; i++) {
+  //   //   listData.add(GlobalKey());
+  //   // }
+  //   // groupKeyList = listData;
+  //   // debugPrint(groupKeyList.toString());
+  // }
 
-  @override
-  void onReady() { // called after the widget is rendered on screen
-    // showIntroDialog();
-    super.onReady();
-  }
+  // @override
+  // void onReady() { // called after the widget is rendered on screen
+  //   // showIntroDialog();
+  //   super.onReady();
+  // }
 
-  @override
-  void onClose() { // called just before the Controller is deleted from memory
-    // closeStream();
-    super.onClose();
-  }
+  // @override
+  // void onClose() { // called just before the Controller is deleted from memory
+  //   // closeStream();
+  //   super.onClose();
+  // }
     
 }

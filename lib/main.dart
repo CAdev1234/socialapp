@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:socialapp/pages/messenger/chat_room_page/chat_room_page.dart';
 import 'package:socialapp/pages/messenger/main_page/main_page.dart';
 import 'package:socialapp/pages/messenger/new_chat_page/new_chat_page.dart';
 import 'package:socialapp/pages/messenger/profile/profile_complete_page.dart';

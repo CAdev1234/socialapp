@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socialapp/constants.dart';
 import 'package:socialapp/pages/messenger/profile/controller/profile_page_controller.dart';
-import 'package:socialapp/pages/messenger/profile/profile_edit_page.dart';
 import 'package:socialapp/pages/messenger/profile/profile_img_page.dart';
-import 'package:socialapp/pages/messenger/security/security_page.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);

@@ -4,15 +4,15 @@ import 'package:socialapp/constants.dart';
 class RadioGroup extends StatefulWidget {
   RadioGroup({
     Key? key, 
-    required List this.radioList,
-    required double this.radioSize,
-    required Color this.activeBorderColor,
-    required Color this.inactiveBorderColor,
-    required Color this.activeColor,
-    required Color this.inactiveColor,
-    required int this.value,
-    required int this.groupValue,
-    double? this.contentMargin,
+    required this.radioList,
+    required this.radioSize,
+    required this.activeBorderColor,
+    required this.inactiveBorderColor,
+    required this.activeColor,
+    required this.inactiveColor,
+    required this.value,
+    required this.groupValue,
+    this.contentMargin,
   }) : super(key: key);
   List radioList;
   double radioSize;
@@ -31,10 +31,10 @@ class _RadioGroupState extends State<RadioGroup> {
 
   int _indexValue = 0;
 
-  @override
-  void initState() {
-    _indexValue = widget.value;
-  }
+  // @override
+  // void initState() {
+  //   _indexValue = widget.value;
+  // }
 
   void updateIndexValueHandler(int idx) {
     setState(() {

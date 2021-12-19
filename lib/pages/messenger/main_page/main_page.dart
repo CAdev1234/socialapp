@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:socialapp/components/search_input.dart';
 import 'package:socialapp/constants.dart';
 import 'package:socialapp/models/transition_type.dart';
-import 'package:socialapp/models/contact.dart';
 import 'package:socialapp/pages/messenger/main_page/components/contacts_body.dart';
 import 'package:socialapp/pages/messenger/main_page/components/groups_body.dart';
 import 'package:socialapp/pages/messenger/main_page/controller/main_page_controller.dart';
