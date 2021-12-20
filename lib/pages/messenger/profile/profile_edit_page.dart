@@ -67,7 +67,10 @@ class ProfileEditPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8,),
-                      GeneralInput(inputHeight: 38,),
+                      GeneralInput(
+                        inputHeight: 38,
+                        field: InputFieldType.name,
+                        callback: (val) {debugPrint(val);}),
 
                       const SizedBox(height: 17,),
                       Row(
@@ -84,7 +87,10 @@ class ProfileEditPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8,),
-                      GeneralInput(inputHeight: 38),
+                      GeneralInput(
+                        inputHeight: 38,
+                        field: InputFieldType.name,
+                        callback: (val) => {debugPrint(val)}),
 
                       const SizedBox(height: 17,),
                       Row(
@@ -101,7 +107,11 @@ class ProfileEditPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8,),
-                      GeneralInput(inputHeight: 38),
+                      GeneralInput(
+                        inputHeight: 38,
+                        field: InputFieldType.name,
+                        callback: (val) => {debugPrint(val)},
+                      ),
 
                       const SizedBox(height: 17,),
                       Row(
@@ -117,8 +127,12 @@ class ProfileEditPage extends StatelessWidget {
                           )
                         ],
                       ),
-                      const SizedBox(height: 8,),
-                      GeneralInput(inputHeight: 38),
+                      const SizedBox(height: 8),
+                      GeneralInput(
+                        inputHeight: 38,
+                        field: InputFieldType.email,
+                        callback: (val) => {debugPrint(val)},
+                      ),
 
                       const SizedBox(height: 17,),
                       Row(
@@ -135,7 +149,7 @@ class ProfileEditPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8,),
-                      const PasswordInput(),
+                      PasswordInput(inputHeight: 38,),
 
                       const SizedBox(height: 17,),
                       Row(
@@ -164,7 +178,11 @@ class ProfileEditPage extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8,),
-                      GeneralInput(inputHeight: 38),
+                      GeneralInput(
+                        inputHeight: 38,
+                        field: InputFieldType.number,
+                        callback: (val) => {debugPrint(val)},
+                      ),
 
                       const SizedBox(height: 17,),
                       Row(
@@ -180,8 +198,12 @@ class ProfileEditPage extends StatelessWidget {
                           )
                         ],
                       ),
-                      const SizedBox(height: 8,),
-                      GeneralInput(inputHeight: 38),
+                      const SizedBox(height: 8),
+                      GeneralInput(
+                        inputHeight: 38,
+                        field: InputFieldType.name,
+                        callback: (val) => {debugPrint(val)},
+                      ),
 
                       const SizedBox(height: 17,),
                       Row(

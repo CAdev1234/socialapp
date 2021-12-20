@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:socialapp/constants.dart';
 
 class PasswordInput extends StatefulWidget {
-  const PasswordInput({Key? key}) : super(key: key);
+  PasswordInput({
+    Key? key,
+    required this.inputHeight,
+    @required this.callback
+  }) : super(key: key);
+
+  double inputHeight;
+  final Function(String)? callback;
 
   @override
   State<PasswordInput> createState() => _PasswordInputState();
@@ -40,6 +47,7 @@ class _PasswordInputState extends State<PasswordInput> {
           )
         ),
         style: const TextStyle(fontSize: cFontSize14),
+        onChanged: (value) => widget.callback!(value),
       ),
     );
   }

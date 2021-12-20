@@ -9,6 +9,7 @@ import 'package:socialapp/pages/messenger/main_page/components/more_popup_body.d
 
 class MainPageController extends GetxController {
 
+  late BuildContext pageContext;
   String pageTitle = "Messenger";
   List chatCategory = ['Contacts', 'Groups', 'Communities', 'Others'];
   RxInt enableCategory = 0.obs;
@@ -17,8 +18,12 @@ class MainPageController extends GetxController {
 
   List groupKeyList = List.generate(demoGroups.length, (index) => GlobalKey());
 
-  RxBool enableGroupMsgCardOptions = false.obs;
+  final enableGroupMsgCardOptions = RxBool(false);
 
+
+  initializeController(BuildContext context) {
+    pageContext = context;
+  }
 
 
   updateChatCategoryHandler(int idx) {
@@ -43,13 +48,10 @@ class MainPageController extends GetxController {
       ));
   }
 
-  showMsgCardOptionsHandler(BuildContext context, int idx) {
-    debugPrint("long press event");
+  showGroupCardOptionsHandler(BuildContext context, int idx) {
     enableGroupMsgCardOptions.value = true;
-    WidgetsBinding.instance!.addPostFrameCallback(
-      (_) => ShowCaseWidget.of(context)!.startShowCase(
-        [groupKeyList[idx]]
-      )
+    ShowCaseWidget.of(context)!.startShowCase(
+      [groupKeyList[idx]]
     );
   }
 
@@ -58,23 +60,23 @@ class MainPageController extends GetxController {
   }
   
   addMemberToGroupHandler() {
-
+    closeMsgCardOptionsHandler();
   }
 
   pinGroupHandler() {
-
+    closeMsgCardOptionsHandler();
   }
 
   muteGroupHandler() {
-
+    closeMsgCardOptionsHandler();
   }
 
   bagGroupHandler() {
-
+    closeMsgCardOptionsHandler();
   }
 
   leaveGroupHandler() {
-
+    closeMsgCardOptionsHandler();
   }
   
 
@@ -82,12 +84,6 @@ class MainPageController extends GetxController {
   // void onInit() { // called immediately after the widget is allocated memory
   //   // fetchApi();
   //   super.onInit();
-  //   // List listData = [];
-  //   // for (var i = 0; i < demoGroups.length; i++) {
-  //   //   listData.add(GlobalKey());
-  //   // }
-  //   // groupKeyList = listData;
-  //   // debugPrint(groupKeyList.toString());
   // }
 
   // @override

@@ -4,12 +4,17 @@ class Contact {
   String lastname;
   String username;
   String email;
+  String? password;
   String birth;
   String? mobile;
   String country;
   String? bio;
   String image;
   bool isVerified;
+  String createdAt;
+  String? updatedAt;
+  String? deletedAt;
+  String? deletedBy;
 
   Contact({
     required this.id,
@@ -17,12 +22,17 @@ class Contact {
     required this.lastname,
     required this.username,
     required this.email,
+    this.password,
     required this.birth, 
     this.mobile,
     required this.country,
     this.bio,
     required this.image,
-    required this.isVerified
+    required this.isVerified,
+    required this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    this.deletedBy
   });
 }
 
@@ -37,7 +47,8 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user0.jpg",
-    isVerified: true
+    isVerified: true,
+    createdAt: '12/19/2021',
   ),
   Contact(
     id: '1',
@@ -48,7 +59,8 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user1.jpg",
-    isVerified: false
+    isVerified: false,
+    createdAt: '12/19/2021',
   ),
   Contact(
     id: '2',
@@ -59,7 +71,8 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user2.jpg",
-    isVerified: true
+    isVerified: true,
+    createdAt: '12/19/2021',
   ),
   Contact(
     id: '3',
@@ -70,7 +83,8 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user3.jpg",
-    isVerified: true
+    isVerified: true,
+    createdAt: '12/19/2021',
   ),
   Contact(
     id: '4',
@@ -81,7 +95,8 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user4.jpg",
-    isVerified: false
+    isVerified: false,
+    createdAt: '12/19/2021',
   ),
   Contact(
     id: '5',
@@ -92,7 +107,8 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user5.jpg",
-    isVerified: false
+    isVerified: false,
+    createdAt: '12/19/2021',
   ),
   Contact(
     id: '6',
@@ -103,7 +119,8 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user6.jpg",
-    isVerified: true
+    isVerified: true,
+    createdAt: '12/19/2021',
   ),
   Contact(
     id: '7',
@@ -114,7 +131,8 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user7.jpg",
-    isVerified: true
+    isVerified: true,
+    createdAt: '12/19/2021',
   ),
   Contact(
     id: '8',
@@ -125,6 +143,7 @@ List demoContacts = [
     birth: "03/06/1990",
     country: "US",
     image: "assets/images/user8.jpg",
-    isVerified: false
+    isVerified: false,
+    createdAt: '12/19/2021',
   ),
 ];

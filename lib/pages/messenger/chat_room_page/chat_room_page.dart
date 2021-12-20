@@ -18,8 +18,6 @@ class ChatRoomPage extends StatelessWidget {
   }) : super(key: key);
 
   Contact clientContact;
-  
-  
 
 
   Widget emptyBody() {
@@ -119,7 +117,6 @@ class ChatRoomPage extends StatelessWidget {
                       ],
                     ),
                   )
-
                 ) 
                 : 
                 GestureDetector(
@@ -301,6 +298,7 @@ class ChatRoomPage extends StatelessWidget {
                   ) 
                 ),
 
+                // chat typing area
                 Container(
                   width: size.width,
                   padding: const EdgeInsets.symmetric(horizontal: cDefaultPadding * 0.8, vertical: 5),
@@ -316,7 +314,10 @@ class ChatRoomPage extends StatelessWidget {
                             ),
                             const SizedBox(width: cDefaultPadding * 0.8),
                             Expanded(
-                              child: ChatInput(returnFocusState: (bool val) => pageController.focusChatInputHandler(val))
+                              child: ChatInput(
+                                returnFocusState: (bool val) => pageController.focusChatInputHandler(val),
+                                returnVal: (val) => pageController.setMsgTxt(val),
+                              )
                             ),
                             const SizedBox(width: cDefaultPadding * 0.7),
                           ]
@@ -357,7 +358,10 @@ class ChatRoomPage extends StatelessWidget {
                             child: const Icon(Icons.mic, color: Colors.black, size: 25),
                           )
                         ],
-                      ) : const Icon(Icons.send, color: cPrimaryColor1, size: 25,),
+                      ) : GestureDetector(
+                        onTap: () => pageController.sendMsgHandler(clientContact),
+                        child: const Icon(Icons.send, color: cPrimaryColor1, size: 25,),
+                      )
                       
                     ],
                   ),)

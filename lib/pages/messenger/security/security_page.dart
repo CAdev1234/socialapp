@@ -8,6 +8,7 @@ import 'package:socialapp/constants.dart';
 import 'package:socialapp/models/security.dart';
 import 'package:socialapp/pages/messenger/security/controller/security_page_controller.dart';
 
+
 class SecurityPage extends StatelessWidget {
   SecurityPage({Key? key}) : super(key: key);
 

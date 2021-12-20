@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:socialapp/models/chat_group.dart';
+import 'package:socialapp/models/contact.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 import 'package:socialapp/components/animation/custom_popup_route.dart';
@@ -19,17 +20,17 @@ class ChatRoomPageController extends GetxController {
   RxBool enableChatInputFocus = false.obs;
   RxBool enableRecord = false.obs;
   RxBool enableMsgCardOptions = false.obs;
-  late List keyList;
+  List keyList = List.generate(demoChatMessage.length, (index) => GlobalKey());
 
-  // RxString 
+  RxString msgTxt = ''.obs;
 
   initializeController(BuildContext context) {
     pageContext = context;
   }
   
-  Future httpGet(String url) {
-    return Future.delayed(const Duration(seconds: 3), () {
-    });
+  setMsgTxt(String str) {
+    debugPrint(str);
+    msgTxt.value = str;
   }
 
   selectCategoryHandler(int idx) {
@@ -114,19 +115,18 @@ class ChatRoomPageController extends GetxController {
     closeMsgCardOptionsHandler();
     demoChatMessage[idx].messageActionStatus = MessageActionStatus.deleted;
   }
- 
-  @override
-  void onInit() { // called immediately after the widget is allocated memory
-    // fetchApi();
-    super.onInit();
-    List listData = [];
-    for (var i = 0; i < demoGroups.length; i++) {
-      listData.add(GlobalKey());
-    }
-    keyList = listData;
-    // clientContact =  Get.arguments;
-    
+
+  sendMsgHandler(Contact clientContact) {
+    debugPrint('msg=${msgTxt.value}');
   }
+ 
+  // @override
+  // void onInit() { // called immediately after the widget is allocated memory
+  //   // fetchApi();
+  //   super.onInit();
+  //   // clientContact =  Get.arguments;
+    
+  // }
 
   // @override
   // void onReady() { // called after the widget is rendered on screen

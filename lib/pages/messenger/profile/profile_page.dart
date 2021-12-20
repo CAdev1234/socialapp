@@ -7,12 +7,41 @@ import 'package:socialapp/pages/messenger/profile/profile_img_page.dart';
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
 
-  ProfilePageController profilePageController = Get.put(ProfilePageController());
+  ProfilePageController pageController = Get.put(ProfilePageController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cPrimaryColor1,
+      appBar: AppBar(
+        backgroundColor: cPrimaryColor1,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Text(pageController.pageTitle, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+        centerTitle: true,
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: cDefaultPadding),
+            alignment: Alignment.center,
+            width: 18,
+            height: 18,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle
+            ),
+            child: GestureDetector(
+              onTap: () => {
+                Navigator.pop(context)
+              },
+              child: const Icon(
+                Icons.close, 
+                color: cPrimaryColor1, 
+                size: 15
+              ),
+            )
+          )
+        ],
+      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -22,43 +51,6 @@ class ProfilePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 0),
-                    child: Stack(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: const Text(
-                            "Profile",
-                            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        Positioned(
-                          right: cDefaultPadding + 5,
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 18,
-                            height: 18,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle
-                            ),
-                            child: GestureDetector(
-                              onTap: () => {
-                                Navigator.pop(context)
-                              },
-                              child: const Icon(
-                                Icons.close, 
-                                color: cPrimaryColor1, 
-                                size: 15
-                              ),
-                            )
-                          ) 
-                        )
-                      ],
-                    ),
-                  ),
-                  
                   Padding(
                     padding: const EdgeInsets.only(left: 17, right: 27),
                     child: Row(

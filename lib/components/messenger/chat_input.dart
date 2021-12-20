@@ -3,10 +3,15 @@ import 'package:socialapp/constants.dart';
 
 class ChatInput extends StatefulWidget {
 
-  const ChatInput({Key? key, required this.returnFocusState}) : super(key: key);
+  const ChatInput({
+    Key? key, 
+    required this.returnFocusState,
+    required this.returnVal
+  }) : super(key: key);
 
   // final VoidCallback returnFocusState;
   final Function(bool) returnFocusState;
+  final Function(String) returnVal;
    
   @override
   State<ChatInput> createState() => _ChatInputState(); 
@@ -60,6 +65,7 @@ class _ChatInputState extends State<ChatInput> {
           ),
         ),
         style: const TextStyle(fontSize: cFontSize14),
+        onChanged: (value) => widget.returnVal(value),
       ),
     );
   }
