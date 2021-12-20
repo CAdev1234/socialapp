@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:socialapp/pages/messenger/home_page/controller/home_page_controller.dart';
 import 'package:socialapp/pages/messenger/main_page/controller/main_page_controller.dart';
 import 'package:socialapp/pages/messenger/main_page/main_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
+  HomePageController homePageController = Get.put(HomePageController());
   MainPageController mainPageController = Get.put(MainPageController());
 
   @override
@@ -54,15 +56,18 @@ class HomePage extends StatelessWidget {
                   
                 });
               }, 
-              child: Column(
-                children: const [
-                  Text(
-                    'Go to Messenger App',
-                    textAlign: TextAlign.center,
-                  )
-                ],
-                )
+              child: const Text(
+                'Go to Messenger App',
+                textAlign: TextAlign.center,
               )
+            ),
+            TextButton(
+              onPressed: () => homePageController.signOutHandler(), 
+              child: const Text(
+                'Logout',
+                textAlign: TextAlign.center,
+              )
+            )
           ],
         ),
       ),

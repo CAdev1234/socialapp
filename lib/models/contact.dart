@@ -11,6 +11,7 @@ class Contact {
   String? bio;
   String image;
   bool isVerified;
+  String? lastSignedAt;
   String createdAt;
   String? updatedAt;
   String? deletedAt;
@@ -29,12 +30,53 @@ class Contact {
     this.bio,
     required this.image,
     required this.isVerified,
+    this.lastSignedAt,
     required this.createdAt,
     this.updatedAt,
     this.deletedAt,
     this.deletedBy
   });
+
+  Contact.fromJson(Map<String, dynamic> json)
+    : id = json['id'],
+      firstname = json['firstname'],
+      lastname = json['lastname'],
+      username = json['username'],
+      email = json['email'],
+      password = json['password'],
+      birth = json['birth'],
+      country = json['country'],
+      bio = json['bio'],
+      image = json['image'],
+      isVerified = json['isVerified'],
+      lastSignedAt = json['lastSignedAt'],
+      createdAt = json['createdAt'],
+      updatedAt = json['updatedAt'],
+      deletedAt = json['deletedAt'],
+      deletedBy = json['deletedBy'];
+  
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'firstname': firstname,
+    'lastname': lastname,
+    'username': username,
+    'email': email,
+    'password': password,
+    'birth': birth,
+    'country': country,
+    'bio': bio,
+    'image': image,
+    'isVerified': isVerified,
+    'lastSignedAt': lastSignedAt,
+    'createdAt': createdAt,
+    'updatedAt': updatedAt,
+    'deletedAt': deletedAt,
+    'deletedBy': deletedBy
+  };
 }
+
+
 
 
 List demoContacts = [

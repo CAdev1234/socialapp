@@ -49,4 +49,7 @@ const cBoxShadow = [
 const cDefaultPadding = 20.0;
 
 
+// get_storage
+const cGSLoginedEmail = 'logined_email';
+
 

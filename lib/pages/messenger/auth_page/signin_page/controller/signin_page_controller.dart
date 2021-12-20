@@ -9,6 +9,8 @@ class SignInPageController extends GetxController {
   RxString email = ''.obs;
   RxString password = ''.obs;
 
+  final getStorage = GetStorage();
+
 
   setEmailHandler(String str) {
     email.value = str;
@@ -23,7 +25,7 @@ class SignInPageController extends GetxController {
       FirebaseService auth = FirebaseService();
       auth.signInWithEmailPassword(email.value, password.value);
       final box = GetStorage();
-      box.write('email', email.value);
+      getStorage.write(cGSLoginedEmail, email.value);
       Get.toNamed('/messenger/home_page');
     } catch (e) {
       Get.defaultDialog(

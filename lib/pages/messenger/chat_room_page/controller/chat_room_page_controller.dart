@@ -29,7 +29,6 @@ class ChatRoomPageController extends GetxController {
   }
   
   setMsgTxt(String str) {
-    debugPrint(str);
     msgTxt.value = str;
   }
 
@@ -118,6 +117,11 @@ class ChatRoomPageController extends GetxController {
 
   sendMsgHandler(Contact clientContact) {
     debugPrint('msg=${msgTxt.value}');
+    if (!msgTxt.value.isEmpty) {
+        
+    }
+    msgTxt.value = '';
+
   }
  
   // @override
