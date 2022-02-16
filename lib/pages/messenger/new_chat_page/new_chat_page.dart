@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:socialapp/components/messenger/empty_avatar.dart';
 import 'package:socialapp/constants.dart';
 import 'package:socialapp/components/search_input.dart';
-import 'package:socialapp/models/contact.dart';
 import 'package:socialapp/pages/messenger/chat_room_page/chat_room_page.dart';
 import 'package:socialapp/pages/messenger/chat_room_page/controller/chat_room_page_controller.dart';
 import 'package:socialapp/pages/messenger/new_chat_page/controller/new_chat_page_controller.dart';
@@ -26,7 +25,7 @@ class NewChatPage extends StatelessWidget {
       MaterialPageRoute(
         builder: (BuildContext context) => ShowCaseWidget(
           builder: Builder(
-            builder: (_) => ChatRoomPage(clientContact: demoContacts[index],),
+            builder: (_) => ChatRoomPage(clientContact: newChatPageController.allContacts[index],),
           ),
           onFinish: () => chatRoomPageController.closeMsgCardOptionsHandler(),
         )
@@ -34,9 +33,9 @@ class NewChatPage extends StatelessWidget {
     ).then((value) => {
       
     });
-
-    // Get.toNamed("/messenger/chat_room_page", arguments: demoContacts[index]);
   }
+
+
   
   @override
   Widget build(BuildContext context) {
@@ -90,9 +89,9 @@ class NewChatPage extends StatelessWidget {
                         const SizedBox(height: cDefaultPadding * 0.6),
                         SizedBox(
                           height: 120,
-                          child: ListView.builder(
+                          child: Obx(() => ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: 3,
+                            itemCount: newChatPageController.allContacts.length,
                             itemBuilder: (context, index) => GestureDetector(
                               onTap: () => navigateChatRoomPageHandler(index, context),
                               child: Padding(
@@ -118,15 +117,15 @@ class NewChatPage extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     child: Row(
                                       children: [
-                                        CircleAvatar(
-                                          backgroundImage: AssetImage(demoContacts[index].image),
+                                        newChatPageController.allContacts[index]['image'] == '' ? EmptyAvatar(avatarType: 'person', radius: 16,) :CircleAvatar(
+                                          backgroundImage: AssetImage(newChatPageController.allContacts[index]['image']),
                                           radius: 16,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(left: 10, right: 6),
                                           child: 
                                             Text(
-                                              '${demoContacts[index].firstname} ${demoContacts[index].lastname}', 
+                                              '${newChatPageController.allContacts[index]['firstname']} ${newChatPageController.allContacts[index]['lastname']}', 
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold, fontSize: cFontSize12)
                                               ),
@@ -136,7 +135,7 @@ class NewChatPage extends StatelessWidget {
                                           height: 14,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                            color: demoContacts[index].isVerified ? cPrimaryColor1 : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
+                                            color: newChatPageController.allContacts[index]['isVerified'] ? cPrimaryColor1 : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
                                           ),
                                           child: const Icon(
                                             Icons.check,
@@ -150,7 +149,7 @@ class NewChatPage extends StatelessWidget {
                                 ), 
                               )
                             ) 
-                          ),
+                          ))
                         ),
                         const SizedBox(height: 17),
                         const Text(
@@ -161,7 +160,7 @@ class NewChatPage extends StatelessWidget {
                         Expanded(
                           child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: demoContacts.length,
+                            itemCount: newChatPageController.allContacts.length,
                             itemBuilder: (context, index) => GestureDetector(
                               onTap: () => navigateChatRoomPageHandler(index, context),
                               child: Padding(
@@ -187,15 +186,15 @@ class NewChatPage extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     child: Row(
                                       children: [
-                                        CircleAvatar(
-                                          backgroundImage: AssetImage(demoContacts[index].image),
+                                        newChatPageController.allContacts[index]['image'] == '' ? EmptyAvatar(avatarType: 'person', radius: 16,) :CircleAvatar(
+                                          backgroundImage: AssetImage(newChatPageController.allContacts[index]['image']),
                                           radius: 16,
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(left: 10, right: 6),
                                           child: 
                                             Text(
-                                              '${demoContacts[index].firstname} ${demoContacts[index].lastname}', 
+                                              '${newChatPageController.allContacts[index]['firstname']} ${newChatPageController.allContacts[index]['lastname']}', 
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold, fontSize: cFontSize12)
                                               ),
@@ -205,7 +204,7 @@ class NewChatPage extends StatelessWidget {
                                           height: 14,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                            color: demoContacts[index].isVerified ? cPrimaryColor1 : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
+                                            color: newChatPageController.allContacts[index]['isVerified'] ? cPrimaryColor1 : Colors.white, borderRadius: const BorderRadius.all(Radius.circular(7))
                                           ),
                                           child: const Icon(
                                             Icons.check,

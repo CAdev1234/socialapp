@@ -61,7 +61,8 @@ class _GeneralInputState extends State<GeneralInput> {
             onChanged: (value) => updateHandler(value),
           ),
         ),
-        if (enableValidate && !validateEmail(currentVal) && widget.field == InputFieldType.email) Text("Invalid Email.", style: TextStyle(color: cWarnColor, fontSize: cFontSize12),)
+        if (enableValidate && !validateEmail(currentVal) && widget.field == InputFieldType.email) const Text("Invalid Email.", style: TextStyle(color: cWarnColor, fontSize: cFontSize12),),
+        if (enableValidate && !validateEmptyString(currentVal) && widget.field == InputFieldType.name) const Text("Empty String.", style: TextStyle(color: cWarnColor, fontSize: cFontSize12),)
       ],
     );
   }

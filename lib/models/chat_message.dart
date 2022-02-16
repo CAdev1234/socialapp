@@ -4,8 +4,9 @@ enum MessageStatus { notSent, pending, notView, viewed, deleted }
 enum MessageActionStatus { none, copied, marked, replied, forwarded, deleted }
 
 class ChatMessage {
-  final String userId;
+  String userId;
   String text;
+  String receiverId;
   ChatMessageType messageType;
   MessageStatus messageStatus;
   MessageActionStatus messageActionStatus;
@@ -14,6 +15,7 @@ class ChatMessage {
 
   ChatMessage({
     required this.userId,
+    required this.receiverId,
     required this.text,
     required this.messageType,
     required this.messageStatus,
@@ -32,6 +34,7 @@ class ChatMessage {
 List demoChatMessage = [
   ChatMessage(
     userId: '0',
+    receiverId: '1',
     text: "Hello John",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
@@ -41,6 +44,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '1',
+    receiverId: '1',
     text: "Hey, Jillian",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
@@ -50,6 +54,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '2',
+    receiverId: '1',
     text: "I'm doing great, thanks",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
@@ -59,6 +64,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '3',
+    receiverId: '1',
     text: "I'm doing good, thank you",
     messageType: ChatMessageType.audio,
     messageStatus: MessageStatus.viewed,
@@ -68,6 +74,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '4',
+    receiverId: '1',
     text: "Lorem ipsum dolor sit amet.",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
@@ -77,6 +84,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '5',
+    receiverId: '1',
     text: "Hey, Jillian",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
@@ -86,6 +94,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '6',
+    receiverId: '1',
     text: "I'm doing great, thanks",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
@@ -95,6 +104,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '7',
+    receiverId: '1',
     text: "Hey, Jillian",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
@@ -104,6 +114,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '8',
+    receiverId: '1',
     text: "I'm doing great, thanks",
     messageType: ChatMessageType.video,
     messageStatus: MessageStatus.notView,
@@ -113,6 +124,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '9',
+    receiverId: '1',
     text: "I'm doing good, thank you",
     messageType: ChatMessageType.audio,
     messageStatus: MessageStatus.viewed,
@@ -122,6 +134,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '10',
+    receiverId: '1',
     text: "Lorem ipsum dolor sit amet.",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
@@ -131,6 +144,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '11',
+    receiverId: '1',
     text: "I'm doing good, thank you",
     messageType: ChatMessageType.audio,
     messageStatus: MessageStatus.viewed,
@@ -140,6 +154,7 @@ List demoChatMessage = [
   ),
   ChatMessage(
     userId: '12',
+    receiverId: '1',
     text: "Lorem ipsum dolor sit amet.",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,

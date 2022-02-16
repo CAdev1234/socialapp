@@ -3,6 +3,11 @@ validateEmail(String email) {
   return isValid;
 }
 
+validateEmptyString(String str) {
+  bool isValid = str.length > 0 ? true : false;
+  return isValid;
+}
+
 validatePassword(String password) {
   // Minimum 1 Upper case
   // Minimum 1 lowercase

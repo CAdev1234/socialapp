@@ -10,10 +10,10 @@ class HomePageController extends GetxController {
 
   signOutHandler() async {
     FirebaseService auth = FirebaseService();
-    await auth.signOut();
+    await auth.signOutFB();
     debugPrint(getStorage.read(cGSLoginedEmail));
     getStorage.remove(cGSLoginedEmail);
-    Get.toNamed('/');
+    await Get.toNamed('/');
   }
 
 }

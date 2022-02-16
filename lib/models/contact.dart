@@ -1,3 +1,36 @@
+
+import 'dart:convert';
+
+class ContactsModel {
+  ContactsModel({
+    this.total,
+    this.page,
+    this.pages,
+    this.contacts
+  });
+
+  String? total;
+  int? page;
+  int? pages;
+  List<Contact>? contacts;
+
+
+  factory ContactsModel.fromJson(Map<String, dynamic> json) => ContactsModel(
+    total: json["total"],
+    page: json["page"],
+    pages: json["pages"],
+    contacts: List<Contact>.from(json["contacts"].map((x) => Contact.fromJson(x))), 
+  );
+
+  Map<String, dynamic> toJson() => {
+    "total": total,
+    "page": page,
+    "pages": pages,
+    "contacts": List<dynamic>.from(contacts!.map((x) => x.toJson())),
+  };
+}
+
+
 class Contact {
   String id;
   String firstname;
@@ -37,23 +70,24 @@ class Contact {
     this.deletedBy
   });
 
-  Contact.fromJson(Map<String, dynamic> json)
-    : id = json['id'],
-      firstname = json['firstname'],
-      lastname = json['lastname'],
-      username = json['username'],
-      email = json['email'],
-      password = json['password'],
-      birth = json['birth'],
-      country = json['country'],
-      bio = json['bio'],
-      image = json['image'],
-      isVerified = json['isVerified'],
-      lastSignedAt = json['lastSignedAt'],
-      createdAt = json['createdAt'],
-      updatedAt = json['updatedAt'],
-      deletedAt = json['deletedAt'],
-      deletedBy = json['deletedBy'];
+  factory Contact.fromJson(Map<String, dynamic> json) => Contact(
+    id: json['id'],
+    firstname: json['firstname'],
+    lastname: json['lastname'],
+    username: json['username'],
+    email: json['email'],
+    password: json['password'],
+    birth: json['birth'],
+    country: json['country'],
+    bio: json['bio'],
+    image: json['image'],
+    isVerified: json['isVerified'],
+    lastSignedAt: json['lastSignedAt'],
+    createdAt: json['createdAt'],
+    updatedAt: json['updatedAt'],
+    deletedAt: json['deletedAt'],
+    deletedBy: json['deletedBy']
+  );
   
 
   Map<String, dynamic> toJson() => {
@@ -88,7 +122,7 @@ List demoContacts = [
     email: "jillian@macnav.gmail",
     birth: "03/06/1990",
     country: "US",
-    image: "assets/images/user0.jpg",
+    image: "",
     isVerified: true,
     createdAt: '12/19/2021',
   ),

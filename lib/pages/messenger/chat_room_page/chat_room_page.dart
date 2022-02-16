@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:socialapp/components/messenger/chat_input.dart';
+import 'package:socialapp/components/messenger/empty_avatar.dart';
 // import 'package:socialapp/components/messenger/msg_card.dart';
 import 'package:socialapp/components/messenger/msg_card/msg_card.dart';
 import 'package:socialapp/constants.dart';
@@ -169,7 +170,7 @@ class ChatRoomPage extends StatelessWidget {
                   width: 35,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(17))),
-                  child: CircleAvatar(
+                  child: clientContact.image == '' ? EmptyAvatar(avatarType: 'person', radius: 25,) : CircleAvatar(
                     backgroundImage: AssetImage(clientContact.image),
                     radius: 16,
                   ),

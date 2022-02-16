@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/route_manager.dart';
 import 'package:socialapp/components/messenger/general_input.dart';
 import 'package:socialapp/components/messenger/password_input.dart';
@@ -17,8 +15,8 @@ class SignUpPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
+        child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("Sign Up", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),),
             const SizedBox(height: 30,),
@@ -26,6 +24,47 @@ class SignUpPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: cDefaultPadding, vertical: 0),
               child: Column(
                 children: [
+
+                  Row(
+                    children: const [
+                      Text(
+                        "First Name",
+                        style: TextStyle(color: Colors.black, fontSize: cFontSize12),
+                      ),
+                      SizedBox(width: 2,),
+                      Text(
+                        "*",
+                        style: TextStyle(color: cWarnColor, fontSize: cFontSize12),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 8,),
+                  GeneralInput(
+                    inputHeight: 38,
+                    field: InputFieldType.name,
+                    callback: (val) => pageController.setFirstNameHandler(val)),
+                  const SizedBox(height: 10),
+
+                  Row(
+                    children: const [
+                      Text(
+                        "Last Name",
+                        style: TextStyle(color: Colors.black, fontSize: cFontSize12),
+                      ),
+                      SizedBox(width: 2,),
+                      Text(
+                        "*",
+                        style: TextStyle(color: cWarnColor, fontSize: cFontSize12),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 8,),
+                  GeneralInput(
+                    inputHeight: 38,
+                    field: InputFieldType.name,
+                    callback: (val) => pageController.setLastNameHandler(val)),
+                  const SizedBox(height: 10),
+
                   Row(
                     children: const [
                       Text(
@@ -44,7 +83,7 @@ class SignUpPage extends StatelessWidget {
                     inputHeight: 38,
                     field: InputFieldType.email,
                     callback: (val) => pageController.setEmailHandler(val)),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
 
                   Row(
                     children: const [
@@ -91,6 +130,7 @@ class SignUpPage extends StatelessWidget {
           ],
         ),
       ),
+      )
     );
   }
 }

@@ -6,12 +6,13 @@ import 'package:socialapp/constants.dart';
 import 'package:socialapp/services/firebase_service.dart';
 
 class SignInPageController extends GetxController {
+  
   RxString email = ''.obs;
   RxString password = ''.obs;
 
   final getStorage = GetStorage();
 
-
+  
   setEmailHandler(String str) {
     email.value = str;
   }
@@ -23,8 +24,7 @@ class SignInPageController extends GetxController {
   signInHandler(BuildContext context) async {
     try {
       FirebaseService auth = FirebaseService();
-      auth.signInWithEmailPassword(email.value, password.value);
-      final box = GetStorage();
+      auth.signInFBWithEmailPassword(email.value, password.value);
       getStorage.write(cGSLoginedEmail, email.value);
       Get.toNamed('/messenger/home_page');
     } catch (e) {

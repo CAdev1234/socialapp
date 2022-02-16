@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -9,7 +10,7 @@ import 'package:socialapp/constants.dart';
 import 'package:socialapp/models/contact.dart';
 
 class FirebaseService {
-  Future<void> signInWithEmailPassword(String email, String password) async {
+  Future<void> signInFBWithEmailPassword(String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       // debugPrint(userCredential.user.);
@@ -36,19 +37,55 @@ class FirebaseService {
     }
   }
 
-  Future<void> signUpWithEmailPassword(String email, String password) async {
+  Future<void> signUpFBWithEmailPassword(String firstname, String lastname, String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password
       );
-      Get.defaultDialog(
-        title: "Successful",
-        content: const Text(
-          "Please go to signin page and sign in.",
-          style: TextStyle(fontSize: cFontSize12),
-        ),
-      );
+      debugPrint(userCredential.toString());
+      debugPrint(userCredential.user.toString());
+      CollectionReference contacts = FirebaseFirestore.instance.collection("contacts");
+      contacts.doc(userCredential.user!.uid).set(
+        Contact(
+          id: userCredential.user!.uid,
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: '',
+          username: '',
+          birth: '',
+          country: '',
+          bio: '',
+          image: '',
+          isVerified: userCredential.user!.emailVerified,
+          lastSignedAt: userCredential.user!.metadata.lastSignInTime.toString(),
+          createdAt: userCredential.user!.metadata.creationTime.toString(),
+          updatedAt: userCredential.user!.metadata.creationTime.toString(),
+          deletedAt: '',
+          deletedBy: ''
+        ).toJson()
+      )
+      .then((value) => {
+        Get.defaultDialog(
+          title: "Successful",
+          content: const Text(
+            "Please go to signin page and sign in.",
+            style: TextStyle(fontSize: cFontSize12),
+          ),
+        )
+      })
+      .catchError((error) => {
+        Get.defaultDialog(
+          title: "Something wrong",
+          content: Text(
+            error.toString(),
+            style: const TextStyle(fontSize: cFontSize12),
+          ),
+        )
+      });
+
+      
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.defaultDialog(
@@ -78,23 +115,47 @@ class FirebaseService {
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> signOutFB() async {
     try {
       await FirebaseAuth.instance.signOut();
     } catch (e) {
-      debugPrint(e.toString());
+      Get.defaultDialog(
+        title: "Something Wrong!",
+        content: Text(
+          e.toString(),
+          style: const TextStyle(fontSize: cFontSize12),
+        ),
+      );
+    }
+  }
+
+  Future getFBContacts() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('contacts').get();
+      final allContacts = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      // debugPrint('allContacts= ${allContacts.toString()}');
+      return allContacts;
+    } catch (e) {
+      Get.defaultDialog(
+        title: "Something Wrong!",
+        content: Text(
+          e.toString(),
+          style: const TextStyle(fontSize: cFontSize12),
+        ),
+      );
     }
   }
 
   void sendTextMessage(Contact receiver, String txt) {
-    FirebaseFirestore.instance.collection("Messages").doc(receiver.id).set({
+    FirebaseFirestore.instance.collection("Messages").doc("sample").set({
       'userId': '',
-      'text': "Lorem ipsum dolor sit amet.",
+      'text': txt,
       'messageType': 'text',
       'messageStatus': 'viewed',
       'messageActionStatus': 'none',
       'isMine': true,
-      'createdAt': '04:15 PM'
+      'createdAt': DateTime.now().toString()
     });
   }
 }

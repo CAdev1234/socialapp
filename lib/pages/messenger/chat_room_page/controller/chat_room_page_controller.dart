@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:socialapp/models/chat_group.dart';
 import 'package:socialapp/models/contact.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
@@ -93,7 +92,8 @@ class ChatRoomPageController extends GetxController {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
     closeMsgCardOptionsHandler();
     ChatMessage repliedMsg = ChatMessage(
-      userId: const Uuid().v1(), 
+      userId: const Uuid().v1(),
+      receiverId: '',
       text: "text", 
       messageType: ChatMessageType.text, 
       messageStatus: MessageStatus.notSent, 
